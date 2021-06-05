@@ -12,9 +12,8 @@ import ComicsDetails from '../ComicDetails';
 
 import api from '../../services/api';
 
-import logoImg from '../../assets/marvel-logo.svg';
-
-import { Header, Character, ComicsList } from './styles';
+import { Container, Character, ComicsList } from './styles';
+import Title from '../../components/Title';
 
 interface RouteParams {
   character: string;
@@ -107,14 +106,8 @@ const CharacterDetails: React.FC = () => {
   };
 
   return (
-    <>
-      <img src={logoImg} alt="Marvel Logo" />
-      <Header>
-        <Link to="/">
-          <FiArrowLeft size={16} />
-          <h1>Character details</h1>
-        </Link>
-      </Header>
+    <Container>
+      <Title title="_character details" />
       {loading ? (
         <Loader />
       ) : (
@@ -161,7 +154,7 @@ const CharacterDetails: React.FC = () => {
       >
         <ComicsDetails id={selectedComic} handleCloseModal={handleCloseModal} />
       </Modal>
-    </>
+    </Container>
   );
 };
 

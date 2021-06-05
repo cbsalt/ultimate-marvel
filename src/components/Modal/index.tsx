@@ -2,8 +2,6 @@
 import React from 'react';
 import ReactModal, { Styles } from 'react-modal';
 
-import * as S from './styles';
-
 ReactModal.setAppElement('*');
 
 type ModalProps = {

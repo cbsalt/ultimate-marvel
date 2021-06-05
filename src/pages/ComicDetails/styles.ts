@@ -13,7 +13,9 @@ export const Header = styled.header`
   }
 
   svg {
-    cursor: pointer;
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 

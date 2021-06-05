@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
-import { Title, Form, Error, Character } from './styles';
+import { Container, Title, Form, Error, Character } from './styles';
 
 import logoImg from '../../assets/marvel-logo.svg';
 import api from '../../services/api';
@@ -81,7 +81,7 @@ const Characters: React.FC = () => {
   }
 
   return (
-    <>
+    <Container>
       <img src={logoImg} alt="Marvel Logo" />
       <Title>Marvel finder</Title>
       <Form hasError={!!inputError} onSubmit={handleSearchHeroe}>
@@ -118,7 +118,7 @@ const Characters: React.FC = () => {
           ))}
         </Character>
       )}
-    </>
+    </Container>
   );
 };
 

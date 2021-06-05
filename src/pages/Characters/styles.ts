@@ -5,6 +5,11 @@ interface FormProps {
   hasError?: boolean;
 }
 
+export const Container = styled.div`
+  max-width: 960px;
+  margin: 48px auto;
+`;
+
 export const Title = styled.h1`
   font-size: 48px;
   color: #3a3a3a;
