@@ -66,5 +66,6 @@ export const ComicsList = styled.div`
     color: #a8a8b3;
     margin-top: 4px;
     list-style: none;
+    cursor: pointer;
   }
 `;

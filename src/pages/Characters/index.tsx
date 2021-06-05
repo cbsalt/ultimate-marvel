@@ -12,11 +12,6 @@ interface ComicsProps {
   name: string;
 }
 
-interface UrlProps {
-  type: string;
-  url: string;
-}
-
 interface CharactersDataProps {
   id: number;
   name: string;

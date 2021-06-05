@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useCallback, useEffect, useState } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Link, useRouteMatch } from 'react-router-dom';
 import api from '../../services/api';
+import ComicsDetails from '../ComicDetails';
+import Modal from '../components/Modal';
 
 import { Header, Character, ComicsList } from './styles';
 
@@ -32,9 +35,12 @@ interface DataProps {
 }
 
 const CharacterDetails: React.FC = () => {
+  const { params } = useRouteMatch<RouteParams>();
+
   const [character, setCharacter] = useState<CharacterDataProps[]>([]);
   const [characterComics, setCharacterComics] = useState<ComicDataProps[]>([]);
-  const { params } = useRouteMatch<RouteParams>();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedComic, setSelectedComic] = useState<any>();
 
   useEffect(() => {
     async function getData(): Promise<void> {
@@ -53,14 +59,31 @@ const CharacterDetails: React.FC = () => {
       );
 
       const responseComics = comicsList.data;
-      const comicsData = responseComics.data.results.map((item: any) => item);
+      const comicsListData = responseComics.data.results.map(
+        (item: any) => item,
+      );
 
       setCharacter(characterData);
-      setCharacterComics(comicsData);
+      setCharacterComics(comicsListData);
     }
 
     getData();
   }, [params.character]);
+
+  const handleShowModal = useCallback(
+    (id: number) => {
+      const comic = characterComics.find((item) => item.id === id);
+      const selectedId = comic?.id;
+
+      setModalIsOpen(true);
+      setSelectedComic(selectedId);
+    },
+    [characterComics],
+  );
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
+  };
 
   return (
     <>
@@ -88,15 +111,22 @@ const CharacterDetails: React.FC = () => {
           {character.map((item) => (
             <strong key={item.id}>Comics of {item.name}</strong>
           ))}
-          {characterComics.map((comic) => (
-            <Link key={comic.id} to={`/comic/${comic.id}`}>
+          {characterComics.map((comicItem) => (
+            <div
+              key={comicItem.id}
+              onClick={() => handleShowModal(comicItem.id)}
+              aria-hidden="true"
+            >
               <ul>
-                <li>{comic.title}</li>
+                <li>{comicItem.title}</li>
               </ul>
-            </Link>
+            </div>
           ))}
         </div>
       </ComicsList>
+      <Modal isOpen={modalIsOpen} handleClose={handleCloseModal}>
+        <ComicsDetails id={selectedComic} handleCloseModal={handleCloseModal} />
+      </Modal>
     </>
   );
 };
