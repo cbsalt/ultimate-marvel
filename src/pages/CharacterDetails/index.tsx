@@ -1,10 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useState } from 'react';
-import { FiArrowLeft } from 'react-icons/fi';
 import { Link, useRouteMatch } from 'react-router-dom';
-import api from '../../services/api';
+import { FiArrowLeft } from 'react-icons/fi';
+import { FaSpinner } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+
+import Loader from '../../components/Loader';
+import Modal from '../../components/Modal';
+
 import ComicsDetails from '../ComicDetails';
-import Modal from '../components/Modal';
+
+import api from '../../services/api';
+
+import logoImg from '../../assets/marvel-logo.svg';
 
 import { Header, Character, ComicsList } from './styles';
 
@@ -37,6 +45,9 @@ interface DataProps {
 const CharacterDetails: React.FC = () => {
   const { params } = useRouteMatch<RouteParams>();
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
   const [character, setCharacter] = useState<CharacterDataProps[]>([]);
   const [characterComics, setCharacterComics] = useState<ComicDataProps[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -44,27 +55,37 @@ const CharacterDetails: React.FC = () => {
 
   useEffect(() => {
     async function getData(): Promise<void> {
-      const [characterItem, comicsList] = await Promise.all([
-        api.get<DataProps>(
-          `characters/${params.character}?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
-        ),
-        api.get<DataProps>(
-          `characters/${params.character}/comics?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
-        ),
-      ]);
+      try {
+        setLoading(true);
 
-      const responseCharacter = characterItem.data;
-      const characterData = responseCharacter.data.results.map(
-        (item: any) => item,
-      );
+        const [characterItem, comicsList] = await Promise.all([
+          api.get<DataProps>(
+            `characters/${params.character}?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
+          ),
+          api.get<DataProps>(
+            `characters/${params.character}/comics?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
+          ),
+        ]);
 
-      const responseComics = comicsList.data;
-      const comicsListData = responseComics.data.results.map(
-        (item: any) => item,
-      );
+        const responseCharacter = characterItem.data;
+        const characterData = responseCharacter.data.results.map(
+          (item: any) => item,
+        );
 
-      setCharacter(characterData);
-      setCharacterComics(comicsListData);
+        const responseComics = comicsList.data;
+        const comicsListData = responseComics.data.results.map(
+          (item: any) => item,
+        );
+
+        setCharacter(characterData);
+        setCharacterComics(comicsListData);
+      } catch (err) {
+        toast.error('😥 whoops! there was an error! try again later.');
+
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     }
 
     getData();
@@ -87,44 +108,57 @@ const CharacterDetails: React.FC = () => {
 
   return (
     <>
+      <img src={logoImg} alt="Marvel Logo" />
       <Header>
         <Link to="/">
           <FiArrowLeft size={16} />
           <h1>Character details</h1>
         </Link>
       </Header>
-      <Character>
-        {character.map((item) => (
-          <header key={item.id}>
-            <img
-              src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-              alt={item.name}
-            />
-            <div>
-              <strong>{item.name}</strong>
-            </div>
-          </header>
-        ))}
-      </Character>
-      <ComicsList>
-        <div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Character>
           {character.map((item) => (
-            <strong key={item.id}>Comics of {item.name}</strong>
+            <header key={item.id}>
+              <img
+                src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+                alt={item.name}
+              />
+              <div>
+                <strong>{item.name}</strong>
+              </div>
+            </header>
           ))}
-          {characterComics.map((comicItem) => (
-            <div
-              key={comicItem.id}
-              onClick={() => handleShowModal(comicItem.id)}
-              aria-hidden="true"
-            >
-              <ul>
-                <li>{comicItem.title}</li>
-              </ul>
-            </div>
-          ))}
-        </div>
-      </ComicsList>
-      <Modal isOpen={modalIsOpen} handleClose={handleCloseModal}>
+        </Character>
+      )}
+      {characterComics.length > 0 && (
+        <ComicsList>
+          <div>
+            {character.map((item) => (
+              <strong key={item.id}>Comics of {item.name}</strong>
+            ))}
+            {characterComics.map((comicItem) => (
+              <div
+                key={comicItem.id}
+                onClick={() => handleShowModal(comicItem.id)}
+                aria-hidden="true"
+              >
+                <ul>
+                  <li>{comicItem.title}</li>
+                </ul>
+              </div>
+            ))}
+          </div>
+        </ComicsList>
+      )}
+
+      <Modal
+        width={800}
+        height={500}
+        isOpen={modalIsOpen}
+        handleClose={handleCloseModal}
+      >
         <ComicsDetails id={selectedComic} handleCloseModal={handleCloseModal} />
       </Modal>
     </>

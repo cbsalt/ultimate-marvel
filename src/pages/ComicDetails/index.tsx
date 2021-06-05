@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import api from '../../services/api';
 
-import { WrapperCard, Header, Container, AboutComic } from './styles';
+import { Wrapper, Header, AboutComic } from './styles';
 
 interface ComponentProps {
   id: number;
@@ -51,39 +51,35 @@ const Comics: React.FC<ComponentProps> = ({ id, handleCloseModal }) => {
   }, [id]);
 
   return (
-    <>
-      <WrapperCard>
-        <Container>
-          <Header>
-            <h2>_comic details</h2>
-            <MdClose size={24} onClick={handleCloseModal} />
-          </Header>
-          {comics.map((comic) => (
-            <>
-              <AboutComic key={comic.id}>
-                <img
-                  src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                  alt={comic.title}
-                />
-                <div>
-                  <p>{comic.description}</p>
-                  <ul>
-                    <li>
-                      <strong>Serie</strong>
-                      <span>{comic.series.name}</span>
-                    </li>
-                    <li>
-                      <strong>Pages</strong>
-                      <span>{comic.pageCount}</span>
-                    </li>
-                  </ul>
-                </div>
-              </AboutComic>
-            </>
-          ))}
-        </Container>
-      </WrapperCard>
-    </>
+    <Wrapper>
+      <Header>
+        <h2>_comic details</h2>
+        <MdClose size={24} onClick={handleCloseModal} />
+      </Header>
+      {comics.map((comic) => (
+        <>
+          <AboutComic key={comic.id}>
+            <img
+              src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+              alt={comic.title}
+            />
+            <div>
+              <p>{comic.description}</p>
+              <ul>
+                <li>
+                  <strong>Serie</strong>
+                  <span>{comic.series.name}</span>
+                </li>
+                <li>
+                  <strong>Pages</strong>
+                  <span>{comic.pageCount}</span>
+                </li>
+              </ul>
+            </div>
+          </AboutComic>
+        </>
+      ))}
+    </Wrapper>
   );
 };
 

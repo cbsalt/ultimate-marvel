@@ -4,6 +4,7 @@ export const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 32px;
 
   a {
     display: flex;
@@ -23,7 +24,7 @@ export const Header = styled.header`
 `;
 
 export const Character = styled.section`
-  margin-top: 80px;
+  margin-top: 40px;
 
   header {
     display: flex;

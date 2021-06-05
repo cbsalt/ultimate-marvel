@@ -1,11 +1,13 @@
 import React, { useState, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 
-import { Title, Form, Error, Heroes } from './styles';
+import { Title, Form, Error, Character } from './styles';
 
 import logoImg from '../../assets/marvel-logo.svg';
 import api from '../../services/api';
+import Loader from '../../components/Loader';
 
 interface ComicsProps {
   resourceURI: string;
@@ -37,6 +39,8 @@ const Characters: React.FC = () => {
   const [newHero, setNewHero] = useState('');
   const [inputError, setInputError] = useState('');
   const [characters, setCharacters] = useState<CharactersDataProps[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   async function handleSearchHeroe(
     e: FormEvent<HTMLFormElement>,
@@ -48,6 +52,8 @@ const Characters: React.FC = () => {
     }
 
     try {
+      setLoading(true);
+
       const response = await api.get<DataProps>(
         `characters?name=${newHero}&ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
       );
@@ -66,7 +72,11 @@ const Characters: React.FC = () => {
       setNewHero('');
       setInputError('');
     } catch (err) {
-      console.log(err, 'there was an error in the request');
+      toast.error('😥 whoops! there was an error! try again later.');
+
+      setError(true);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -83,27 +93,31 @@ const Characters: React.FC = () => {
         <button type="submit">Assemble!</button>
       </Form>
       {inputError && <Error>{inputError}</Error>}
-      <Heroes>
-        {characters.map((characterItem) => (
-          <>
-            <Link
-              className="hero-card"
-              to={`/character/${characterItem.id}`}
-              key={characterItem.id}
-            >
-              <img
-                src={`${characterItem.thumbnail.path}.${characterItem.thumbnail.extension}`}
-                alt={characterItem.name}
-              />
-              <div>
-                <strong>{characterItem.name}</strong>
-                <p>{characterItem.description}</p>
-              </div>
-              <FiChevronRight size={20} />
-            </Link>
-          </>
-        ))}
-      </Heroes>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Character>
+          {characters.map((characterItem) => (
+            <>
+              <Link
+                className="hero-card"
+                to={`/character/${characterItem.id}`}
+                key={characterItem.id}
+              >
+                <img
+                  src={`${characterItem.thumbnail.path}.${characterItem.thumbnail.extension}`}
+                  alt={characterItem.name}
+                />
+                <div>
+                  <strong>{characterItem.name}</strong>
+                  <p>{characterItem.description}</p>
+                </div>
+                <FiChevronRight size={20} />
+              </Link>
+            </>
+          ))}
+        </Character>
+      )}
     </>
   );
 };

@@ -10,7 +10,7 @@ export const Title = styled.h1`
   color: #3a3a3a;
   max-width: 450px;
   line-height: 56px;
-  margin-top: 64px;
+  margin-top: 32px;
 `;
 
 export const Form = styled.form<FormProps>`
@@ -63,7 +63,7 @@ export const Error = styled.span`
   margin-top: 8px;
 `;
 
-export const Heroes = styled.div`
+export const Character = styled.div`
   margin-top: 80px;
   max-width: 700px;
 
