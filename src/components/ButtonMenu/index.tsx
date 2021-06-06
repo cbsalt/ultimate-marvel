@@ -7,7 +7,7 @@ const Menu: React.FC = () => {
   const { open, handleOpenNavMenu } = useContext(MenuContext);
 
   return (
-    <StyledBurger open={open} onClick={handleOpenNavMenu}>
+    <StyledBurger open={open} onClick={() => handleOpenNavMenu(open)}>
       <div />
       <div />
       <div />

@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { FiArrowLeft } from 'react-icons/fi';
+import { useRouteMatch } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa';
+import { MdFavorite } from 'react-icons/md';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 import Loader from '../../components/Loader';
 import Modal from '../../components/Modal';
@@ -12,7 +13,7 @@ import ComicsDetails from '../ComicDetails';
 
 import api from '../../services/api';
 
-import { Container, Character, ComicsList } from './styles';
+import { Container, Details, Character, ComicsList } from './styles';
 import Title from '../../components/Title';
 
 interface RouteParams {
@@ -26,6 +27,13 @@ interface ComicDataProps {
 
 interface CharacterDataProps {
   id: number;
+  comics: {
+    available: number;
+  };
+  description: string;
+  series: {
+    available: number;
+  };
   name: string;
   thumbnail: {
     extension: string;
@@ -51,6 +59,17 @@ const CharacterDetails: React.FC = () => {
   const [characterComics, setCharacterComics] = useState<ComicDataProps[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedComic, setSelectedComic] = useState<any>();
+
+  const [charactersList, setCharactersList] = useState<CharacterDataProps[]>(
+    () => {
+      const storagedCharacters = localStorage.getItem('@Marvel:characters');
+
+      if (storagedCharacters) {
+        return JSON.parse(storagedCharacters);
+      }
+      return [];
+    },
+  );
 
   useEffect(() => {
     async function getData(): Promise<void> {
@@ -79,7 +98,7 @@ const CharacterDetails: React.FC = () => {
         setCharacter(characterData);
         setCharacterComics(comicsListData);
       } catch (err) {
-        toast.error('😥 whoops! there was an error! try again later.');
+        toast.error('😥 whoops! there was an error!');
 
         setError(true);
       } finally {
@@ -89,6 +108,25 @@ const CharacterDetails: React.FC = () => {
 
     getData();
   }, [params.character]);
+
+  const handleSaveFavorite = useCallback(
+    (item: any) => {
+      const characterItem = {
+        ...item,
+        uuid: uuidv4(),
+      };
+      const newCharactersList = [...charactersList, characterItem];
+
+      localStorage.setItem(
+        '@Marvel:characters',
+        JSON.stringify(newCharactersList),
+      );
+      setCharactersList(newCharactersList);
+
+      toast.success('👍 character saved to your favorite characters');
+    },
+    [charactersList],
+  );
 
   const handleShowModal = useCallback(
     (id: number) => {
@@ -111,25 +149,52 @@ const CharacterDetails: React.FC = () => {
       {loading ? (
         <Loader />
       ) : (
-        <Character>
-          {character.map((item) => (
-            <header key={item.id}>
-              <img
-                src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-                alt={item.name}
-              />
-              <div>
-                <strong>{item.name}</strong>
-              </div>
-            </header>
-          ))}
-        </Character>
+        <>
+          <Character>
+            {character.map((item) => (
+              <header key={item.id}>
+                <img
+                  src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+                  alt={item.name}
+                />
+                <div>
+                  <strong>{item.name}</strong>
+                  <button
+                    type="button"
+                    onClick={() => handleSaveFavorite(item)}
+                  >
+                    <MdFavorite size={28} color="#ffffff" />
+                  </button>
+                </div>
+              </header>
+            ))}
+          </Character>
+          <Details>
+            {character.map((item) => (
+              <>
+                <div key={item.description}>
+                  <p>{item.description}</p>
+                </div>
+                <ul>
+                  <li>
+                    <strong>{item.comics.available}</strong>
+                    <span>_comics</span>
+                  </li>
+                  <li>
+                    <strong>{item.series.available}</strong>
+                    <span>_series</span>
+                  </li>
+                </ul>
+              </>
+            ))}
+          </Details>
+        </>
       )}
       {characterComics.length > 0 && (
         <ComicsList>
           <div>
             {character.map((item) => (
-              <strong key={item.id}>Comics of {item.name}</strong>
+              <strong key={item.name}>Comics of {item.name}</strong>
             ))}
             {characterComics.map((comicItem) => (
               <div

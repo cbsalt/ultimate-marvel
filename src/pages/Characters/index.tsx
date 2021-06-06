@@ -8,6 +8,7 @@ import { Container, Title, Form, Error, Character } from './styles';
 import logoImg from '../../assets/marvel-logo.svg';
 import api from '../../services/api';
 import Loader from '../../components/Loader';
+import { truncateText } from '../../utils/truncateText';
 
 interface ComicsProps {
   resourceURI: string;
@@ -110,7 +111,14 @@ const Characters: React.FC = () => {
                 />
                 <div>
                   <strong>{characterItem.name}</strong>
-                  <p>{characterItem.description}</p>
+                  {characterItem.description ? (
+                    <p>{truncateText(`${characterItem.description}`, 190)}</p>
+                  ) : (
+                    <p>
+                      😯 sorry! there&apos;s no description for this character
+                      yet
+                    </p>
+                  )}
                 </div>
                 <FiChevronRight size={20} />
               </Link>

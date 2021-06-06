@@ -18,7 +18,7 @@ export const Header = styled.header`
     }
 
     svg {
-      margin-right: 4px;
+      margin-right: 8px;
     }
   }
 `;

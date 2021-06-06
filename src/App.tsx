@@ -11,8 +11,7 @@ const App: React.FC = () => (
       <Routes />
     </BrowserRouter>
     <GlobalStyles />
-
-    <ToastContainer autoClose={3000} />
+    <ToastContainer autoClose={3500} />
   </>
 );
 

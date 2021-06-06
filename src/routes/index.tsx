@@ -14,8 +14,8 @@ import Header from '../components/Header';
 const Routes: React.FC = () => {
   const [open, setOpen] = useState(false);
 
-  const handleOpenNavMenu = () => {
-    setOpen(!open);
+  const handleOpenNavMenu = (e: boolean) => {
+    setOpen(!e);
   };
 
   return (

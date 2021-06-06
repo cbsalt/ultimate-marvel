@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { toast } from 'react-toastify';
+import Image from '../../components/Image';
 import Loader from '../../components/Loader';
 import api from '../../services/api';
 
@@ -75,7 +76,7 @@ const Comics: React.FC<ComponentProps> = ({ id, handleCloseModal }) => {
         <>
           {comics.map((comic) => (
             <AboutComic key={comic.id}>
-              <img
+              <Image
                 src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
                 alt={comic.title}
               />

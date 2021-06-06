@@ -23,11 +23,14 @@ export const AboutComic = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 24px;
-  height: 400px;
+
+  img {
+    max-height: 400px;
+  }
 
   div {
     flex-direction: column;
-    margin-left: 24px;
+    margin-right: 24px;
   }
 
   p {

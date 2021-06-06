@@ -3,7 +3,7 @@ import { createContext } from 'react';
 
 interface NavMenuContextValue {
   open: boolean;
-  handleOpenNavMenu: () => void;
+  handleOpenNavMenu(e: boolean): void;
 }
 
 export const MenuContext = createContext<NavMenuContextValue>({
