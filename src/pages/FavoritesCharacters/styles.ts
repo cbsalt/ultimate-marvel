@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const Container = styled.div`
   max-width: 960px;
   margin: 48px auto;
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const Character = styled.div`

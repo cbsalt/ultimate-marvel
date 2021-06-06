@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import ReactModal, { Styles } from 'react-modal';
 
@@ -9,7 +8,7 @@ type ModalProps = {
   handleClose: () => void;
   width?: number;
   height?: number;
-  style?: Styles;
+  children: React.ReactNode;
 };
 
 export const Modal: React.FC<ModalProps> = ({
@@ -18,7 +17,7 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   isOpen,
   handleClose,
-}) => {
+}: ModalProps) => {
   const styles: Styles = {
     overlay: {
       position: 'fixed',

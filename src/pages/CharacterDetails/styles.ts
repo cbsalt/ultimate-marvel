@@ -19,15 +19,18 @@ export const Details = styled.section`
     display: flex;
     list-style: none;
     margin-top: 40px;
+
     li {
       & + li {
         margin-left: 80px;
       }
+
       strong {
         display: block;
         font-size: 36px;
         color: #3d3d4d;
       }
+
       span {
         display: block;
         margin-top: 4px;

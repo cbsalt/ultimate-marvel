@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { useEffect } from 'react';
 
-export const useClickOutside = (ref: any, callback: any) => {
+export const useClickOutside = (ref: any, callback: () => void) => {
   useEffect(() => {
     function handleClickOutside(event: any) {
       if (ref.current && !ref.current.contains(event.target)) {

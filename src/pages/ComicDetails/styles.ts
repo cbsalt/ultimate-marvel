@@ -19,18 +19,21 @@ export const Header = styled.header`
   }
 `;
 
-export const AboutComic = styled.div`
+export const AboutComic = styled.section`
   display: flex;
   flex-direction: row;
   margin-top: 24px;
+  max-height: 400px;
 
   img {
-    max-height: 400px;
+    max-height: 360px;
+    margin-right: 24px;
   }
 
-  div {
+  .wrapper-details {
     flex-direction: column;
-    margin-right: 24px;
+    width: 480px;
+    overflow: scroll;
   }
 
   p {
@@ -54,6 +57,30 @@ export const AboutComic = styled.div`
       display: block;
       margin-top: 4px;
       color: #6c6c80;
+    }
+  }
+  .wrapper-tooltip {
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: #f00;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      transform: scale(1.04);
+      transition: 0.2s;
     }
   }
 `;

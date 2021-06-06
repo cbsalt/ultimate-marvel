@@ -15,6 +15,7 @@ import api from '../../services/api';
 
 import { Container, Details, Character, ComicsList } from './styles';
 import Title from '../../components/Title';
+import Tooltip from '../../components/Tooltip';
 
 interface RouteParams {
   character: string;
@@ -123,7 +124,7 @@ const CharacterDetails: React.FC = () => {
       );
       setCharactersList(newCharactersList);
 
-      toast.success('👍 character saved to your favorite characters');
+      toast.success('character saved to your favorite characters 🦸‍♀️');
     },
     [charactersList],
   );
@@ -159,12 +160,14 @@ const CharacterDetails: React.FC = () => {
                 />
                 <div>
                   <strong>{item.name}</strong>
-                  <button
-                    type="button"
-                    onClick={() => handleSaveFavorite(item)}
-                  >
-                    <MdFavorite size={28} color="#ffffff" />
-                  </button>
+                  <Tooltip text="add to favorites">
+                    <button
+                      type="button"
+                      onClick={() => handleSaveFavorite(item)}
+                    >
+                      <MdFavorite size={28} color="#ffffff" />
+                    </button>
+                  </Tooltip>
                 </div>
               </header>
             ))}
@@ -173,7 +176,11 @@ const CharacterDetails: React.FC = () => {
             {character.map((item) => (
               <>
                 <div key={item.description}>
-                  <p>{item.description}</p>
+                  {item.description ? (
+                    <p>{item.description}</p>
+                  ) : (
+                    <p>there&apos;s no description for this character yet</p>
+                  )}
                 </div>
                 <ul>
                   <li>
@@ -182,7 +189,7 @@ const CharacterDetails: React.FC = () => {
                   </li>
                   <li>
                     <strong>{item.series.available}</strong>
-                    <span>_series</span>
+                    <span>_collects</span>
                   </li>
                 </ul>
               </>

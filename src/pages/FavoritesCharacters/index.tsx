@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import Title from '../../components/Title';
@@ -10,7 +11,6 @@ interface CharactersDataProps {
   uuid: string;
   id: number;
   name: string;
-  description: string;
   thumbnail: {
     extension: string;
     path: string;
@@ -39,7 +39,7 @@ const FavoritesCharacters: React.FC = () => {
 
       setCharacters(filtered);
       localStorage.setItem('@Marvel:characters', JSON.stringify(filtered));
-      toast.success('👍 favorite character successfully deleted!');
+      toast.success('favorite character successfully deleted! 👍');
     },
     [characters],
   );
@@ -48,23 +48,25 @@ const FavoritesCharacters: React.FC = () => {
     <Container>
       <Title title="_favorite characters" />
       {characters.map((item) => (
-        <Character key={item.uuid}>
-          <>
-            <img
-              src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-              alt={item.name}
-            />
-            <div>
-              <strong>{item.name}</strong>
-            </div>
-            <button
-              type="button"
-              onClick={() => handleRemoveFavorite(item.uuid)}
-            >
-              <FaTrash size={28} color="#ffffff" />
-            </button>
-          </>
-        </Character>
+        <Link to={`/character/${item.id}`}>
+          <Character key={item.uuid}>
+            <>
+              <img
+                src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+                alt={item.name}
+              />
+              <div>
+                <strong>{item.name}</strong>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleRemoveFavorite(item.uuid)}
+              >
+                <FaTrash size={28} color="#ffffff" />
+              </button>
+            </>
+          </Character>
+        </Link>
       ))}
     </Container>
   );

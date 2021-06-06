@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
@@ -11,7 +10,7 @@ type TitleProps = {
   title: string;
 };
 
-export const Title: React.FC<TitleProps> = ({ title }) => {
+export const Title: React.FC<TitleProps> = ({ title }: TitleProps) => {
   return (
     <>
       <img src={logoImg} alt="Marvel Logo" />
