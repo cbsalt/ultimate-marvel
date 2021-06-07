@@ -1,34 +1,42 @@
-/* eslint-disable react/prop-types */
 import React, { useCallback, useEffect, useState } from 'react';
-import { MdClose, MdFavorite } from 'react-icons/md';
+import { MdFavorite } from 'react-icons/md';
+import { useRouteMatch } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 
-import Image from '../../components/Image';
 import Loader from '../../components/Loader';
+import Title from '../../components/Title';
 import Tooltip from '../../components/Tooltip';
 
 import api from '../../services/api';
+import { truncateText } from '../../utils/truncateText';
 
-import { Wrapper, Header, AboutComic } from './styles';
+import { Container, Comic, Details } from './styles';
 
-interface ComponentProps {
-  id: number;
-  handleCloseModal?: () => void;
+interface RouteParams {
+  comic: string;
+}
+
+interface AvailableCharacters {
+  name: string;
 }
 
 interface ComicDataProps {
   id: number;
-  title: string;
   description: string;
+  pageCount: number;
+  series: {
+    name: string;
+  };
+  characters: {
+    available: number;
+    items: AvailableCharacters[];
+  };
+  title: string;
   thumbnail: {
     extension: string;
     path: string;
   };
-  series: {
-    name: string;
-  };
-  pageCount: number;
 }
 
 interface ResultsProps {
@@ -39,10 +47,13 @@ interface DataProps {
   data: ResultsProps;
 }
 
-const Comics: React.FC<ComponentProps> = ({ id, handleCloseModal }) => {
-  const [comics, setComics] = useState<ComicDataProps[]>([]);
+export const ComicDetails: React.FC = () => {
+  const { params } = useRouteMatch<RouteParams>();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const [comic, setComic] = useState<ComicDataProps[]>([]);
   const [comicsList, setComicsList] = useState<ComicDataProps[]>(() => {
     const storagedCharacters = localStorage.getItem('@Marvel:comics');
 
@@ -53,19 +64,22 @@ const Comics: React.FC<ComponentProps> = ({ id, handleCloseModal }) => {
   });
 
   useEffect(() => {
-    async function getComics(): Promise<void> {
+    async function getData(): Promise<void> {
       try {
         setLoading(true);
+
         const response = await api.get<DataProps>(
-          `comics/${id}?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
+          `comics/${params.comic}?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
         );
+
+        const responseComic = response.data;
 
         const responseComics = response.data;
         const comicsData = responseComics.data.results.map((item) => item);
 
-        setComics(comicsData);
+        setComic(comicsData);
       } catch (err) {
-        toast.error('😥 whoops! there was an error! try again later.');
+        toast.error('😥 whoops! there was an error!');
 
         setError(true);
       } finally {
@@ -73,72 +87,93 @@ const Comics: React.FC<ComponentProps> = ({ id, handleCloseModal }) => {
       }
     }
 
-    getComics();
-  }, [id]);
+    getData();
+  }, [params.comic]);
 
-  const handleSaveFavorite = useCallback(
-    (item: any) => {
-      const comicItem = {
-        ...item,
-        uuid: uuidv4(),
-      };
-      const newComicsList = [...comicsList, comicItem];
+  const handleSaveFavorite = useCallback((item: any) => {
+    const comicItem = {
+      ...item,
+      uuid: uuidv4(),
+    };
+    const newComicsList = [...comicsList, comicItem];
 
-      localStorage.setItem('@Marvel:comics', JSON.stringify(newComicsList));
-      setComicsList(newComicsList);
+    localStorage.setItem('@Marvel:comics', JSON.stringify(newComicsList));
+    setComicsList(newComicsList);
 
-      toast.success('comic saved to your favorite comics 📖');
-    },
-    [comicsList],
-  );
+    toast.success('character saved to your favorite characters 🦸‍♀️');
+  }, []);
 
   return (
-    <Wrapper>
-      <Header>
-        <h2>_comic details</h2>
-        <MdClose size={24} onClick={handleCloseModal} />
-      </Header>
+    <Container>
+      <Title to="comics" title="comic details" />
       {loading ? (
         <Loader />
       ) : (
         <>
-          {comics.map((comic) => (
-            <>
-              <AboutComic key={comic.id}>
-                <Image
-                  src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                  alt={comic.title}
+          <Comic>
+            {comic.map((item) => (
+              <header key={item.id}>
+                <img
+                  src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+                  alt={item.title}
                 />
-                <div className="wrapper-details">
-                  <p>{comic.description}</p>
-                  <ul>
-                    <li>
-                      <strong>Serie</strong>
-                      <span>{comic.series.name}</span>
-                    </li>
-                    <li>
-                      <strong>Pages</strong>
-                      <span>{comic.pageCount}</span>
-                    </li>
-                  </ul>
-                  <div className="wrapper-tooltip">
-                    <Tooltip text="add to favorites">
-                      <button
-                        type="button"
-                        onClick={() => handleSaveFavorite(comic)}
-                      >
-                        <MdFavorite size={28} color="#ffffff" />
-                      </button>
-                    </Tooltip>
-                  </div>
+                <div>
+                  <strong>{item.title}</strong>
+                  <Tooltip text="add to favorites">
+                    <button
+                      type="button"
+                      onClick={() => handleSaveFavorite(item)}
+                    >
+                      <MdFavorite size={28} color="#ffffff" />
+                    </button>
+                  </Tooltip>
                 </div>
-              </AboutComic>
-            </>
-          ))}
+              </header>
+            ))}
+          </Comic>
+          <Details>
+            {comic.map((item) => (
+              <>
+                <div key={item.description}>
+                  {item.description ? (
+                    <p>{item.description}</p>
+                  ) : (
+                    <p>there&apos;s no description for this comic yet</p>
+                  )}
+                </div>
+                <ul>
+                  <li>
+                    <strong>{truncateText(`${item.series.name}`, 40)}</strong>
+                    <span>_collect</span>
+                  </li>
+                  <li>
+                    <strong>{item.pageCount}</strong>
+                    <span>_pages</span>
+                  </li>
+
+                  <li>
+                    {item.characters.available > 0 ? (
+                      <>
+                        {item.characters.items.map((character) => (
+                          <strong>{character.name}</strong>
+                        ))}
+                        <span>_characters</span>
+                      </>
+                    ) : (
+                      <>
+                        <strong>0</strong>
+                        <span>_characters</span>
+                      </>
+                    )}
+                  </li>
+                </ul>
+              </>
+            ))}
+          </Details>
         </>
       )}
-    </Wrapper>
+    </Container>
   );
 };
 
-export default Comics;
+export default ComicDetails;

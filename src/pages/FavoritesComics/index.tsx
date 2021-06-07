@@ -45,7 +45,7 @@ const FavoritesComics: React.FC = () => {
 
   return (
     <Container>
-      <Title title="_favorites comics" />
+      <Title to="comics" title="_favorites comics" />
       {comics.map((item) => (
         <Comic key={item.uuid}>
           <>

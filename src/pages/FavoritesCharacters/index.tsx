@@ -46,27 +46,27 @@ const FavoritesCharacters: React.FC = () => {
 
   return (
     <Container>
-      <Title title="_favorite characters" />
+      <Title to="" title="_favorite characters" />
       {characters.map((item) => (
-        <Link to={`/character/${item.id}`}>
-          <Character key={item.uuid}>
-            <>
-              <img
-                src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-                alt={item.name}
-              />
-              <div>
+        <Character key={item.uuid}>
+          <>
+            <img
+              src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+              alt={item.name}
+            />
+            <div>
+              <Link to={`/character/${item.id}`}>
                 <strong>{item.name}</strong>
-              </div>
-              <button
-                type="button"
-                onClick={() => handleRemoveFavorite(item.uuid)}
-              >
-                <FaTrash size={28} color="#ffffff" />
-              </button>
-            </>
-          </Character>
-        </Link>
+              </Link>
+            </div>
+            <button
+              type="button"
+              onClick={() => handleRemoveFavorite(item.uuid)}
+            >
+              <FaTrash size={28} color="#ffffff" />
+            </button>
+          </>
+        </Character>
       ))}
     </Container>
   );

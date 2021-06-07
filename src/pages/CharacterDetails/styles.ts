@@ -96,6 +96,18 @@ export const ComicsList = styled.div`
   transition: transform 0.2s;
   position: relative;
 
+  .prev-page {
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+
+  .next-page {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
   strong {
     font-size: 24px;
     color: #3d3d4d;

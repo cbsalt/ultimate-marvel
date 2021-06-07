@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useState } from 'react';
+
 import { useRouteMatch } from 'react-router-dom';
-import { FaSpinner } from 'react-icons/fa';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { MdFavorite } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
@@ -9,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Loader from '../../components/Loader';
 import Modal from '../../components/Modal';
 
-import ComicsDetails from '../ComicDetails';
+import ComicsDetails from '../ModalComic';
 
 import api from '../../services/api';
 
@@ -60,6 +61,7 @@ const CharacterDetails: React.FC = () => {
   const [characterComics, setCharacterComics] = useState<ComicDataProps[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedComic, setSelectedComic] = useState<any>();
+  const [offset, setOffset] = useState(0);
 
   const [charactersList, setCharactersList] = useState<CharacterDataProps[]>(
     () => {
@@ -83,6 +85,11 @@ const CharacterDetails: React.FC = () => {
           ),
           api.get<DataProps>(
             `characters/${params.character}/comics?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
+            {
+              params: {
+                offset,
+              },
+            },
           ),
         ]);
 
@@ -108,7 +115,7 @@ const CharacterDetails: React.FC = () => {
     }
 
     getData();
-  }, [params.character]);
+  }, [params.character, offset]);
 
   const handleSaveFavorite = useCallback(
     (item: any) => {
@@ -144,9 +151,17 @@ const CharacterDetails: React.FC = () => {
     setModalIsOpen(false);
   };
 
+  const handlePrev = () => {
+    setOffset(offset - 1);
+  };
+
+  const handleNext = () => {
+    setOffset(offset + 1);
+  };
+
   return (
     <Container>
-      <Title title="_character details" />
+      <Title to="" title="_character details" />
       {loading ? (
         <Loader />
       ) : (
@@ -197,7 +212,7 @@ const CharacterDetails: React.FC = () => {
           </Details>
         </>
       )}
-      {characterComics.length > 0 && (
+      {characterComics.length > 0 && !loading && (
         <ComicsList>
           <div>
             {character.map((item) => (
@@ -217,7 +232,6 @@ const CharacterDetails: React.FC = () => {
           </div>
         </ComicsList>
       )}
-
       <Modal
         width={800}
         height={500}

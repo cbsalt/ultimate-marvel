@@ -17,13 +17,40 @@ export const NavMenu: React.FC = () => {
     <Container ref={ref} open={open}>
       <ul>
         <li>
-          <Link to="/">_home</Link>
+          <Link
+            to="/"
+            onClick={() => handleOpenNavMenu(open)}
+            aria-hidden="true"
+          >
+            _characters finder
+          </Link>
         </li>
         <li>
-          <Link to="/favorites/characters">_favorite characters</Link>
+          <Link
+            to="/comics"
+            onClick={() => handleOpenNavMenu(open)}
+            aria-hidden="true"
+          >
+            _comics finder
+          </Link>
         </li>
         <li>
-          <Link to="/favorites/comics">_favorite comics</Link>
+          <Link
+            to="/favorites/characters"
+            onClick={() => handleOpenNavMenu(open)}
+            aria-hidden="true"
+          >
+            _favorite characters
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/favorites/comics"
+            onClick={() => handleOpenNavMenu(open)}
+            aria-hidden="true"
+          >
+            _favorite comics
+          </Link>
         </li>
       </ul>
     </Container>

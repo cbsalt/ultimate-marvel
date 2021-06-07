@@ -3,42 +3,35 @@ import { Link } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
-import { Container, Title, Form, Error, Character } from './styles';
+import { Container, Title, Form, Error, Comic } from './styles';
 
 import logoImg from '../../assets/marvel-logo.svg';
 import api from '../../services/api';
 import Loader from '../../components/Loader';
 import { truncateText } from '../../utils/truncateText';
 
-interface ComicsProps {
-  name: string;
-}
-
-interface CharactersDataProps {
+interface ComicsDataProps {
   id: number;
-  name: string;
+  title: string;
   description: string;
   thumbnail: {
-    extension: string;
     path: string;
-  };
-  comics: {
-    items: ComicsProps[];
+    extension: string;
   };
 }
 
 interface ResultsProps {
-  results: CharactersDataProps[];
+  results: ComicsDataProps[];
 }
 
 interface DataProps {
   data: ResultsProps;
 }
 
-const Characters: React.FC = () => {
-  const [newHero, setNewHero] = useState('');
+const Comics: React.FC = () => {
+  const [newComic, setNewComic] = useState('');
   const [inputError, setInputError] = useState('');
-  const [characters, setCharacters] = useState<CharactersDataProps[]>([]);
+  const [comics, setComics] = useState<ComicsDataProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -46,7 +39,7 @@ const Characters: React.FC = () => {
     e: FormEvent<HTMLFormElement>,
   ): Promise<void> {
     e.preventDefault();
-    if (!newHero) {
+    if (!newComic) {
       setInputError('type here first, please! 🤓');
       return;
     }
@@ -55,26 +48,27 @@ const Characters: React.FC = () => {
       setLoading(true);
 
       const response = await api.get<DataProps>(
-        `characters?nameStartsWith=${newHero}&ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
+        `comics?titleStartsWith=${newComic}&ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
       );
 
-      const character = response.data;
+      const comic = response.data;
 
-      const dataHero = character.data.results.map((item) => item);
+      const dataComic = comic.data.results.map((item) => item);
 
-      if (dataHero.length === 0) {
-        setInputError(`looks like this character is busy or doesn't exist! 😥`);
-        setCharacters([]);
+      if (dataComic.length === 0) {
+        setInputError(`looks like this comic doesn't exist! 😥`);
+        setComics([]);
         return;
       }
 
-      setCharacters(dataHero);
-      setNewHero('');
+      setComics(dataComic);
+      setNewComic('');
       setInputError('');
     } catch (err) {
       toast.error('😥 whoops! there was an error! try again later.');
 
       setError(true);
+      setNewComic('');
     } finally {
       setLoading(false);
     }
@@ -83,12 +77,12 @@ const Characters: React.FC = () => {
   return (
     <Container>
       <img src={logoImg} alt="Marvel Logo" />
-      <Title>Characters finder</Title>
+      <Title>Comics finder</Title>
       <Form hasError={!!inputError} onSubmit={handleSearchHeroe}>
         <input
-          value={newHero}
-          placeholder="Search for your character"
-          onChange={(e) => setNewHero(e.target.value)}
+          value={newComic}
+          placeholder="Search for comics"
+          onChange={(e) => setNewComic(e.target.value)}
         />
         <button type="submit">Assemble!</button>
       </Form>
@@ -96,37 +90,34 @@ const Characters: React.FC = () => {
       {loading ? (
         <Loader />
       ) : (
-        <Character>
-          {characters.map((characterItem) => (
+        <Comic>
+          {comics.map((comicItem) => (
             <>
               <Link
                 className="hero-card"
-                to={`/character/${characterItem.id}`}
-                key={characterItem.id}
+                to={`/comic/${comicItem.id}`}
+                key={comicItem.id}
               >
                 <img
-                  src={`${characterItem.thumbnail.path}.${characterItem.thumbnail.extension}`}
-                  alt={characterItem.name}
+                  src={`${comicItem.thumbnail.path}.${comicItem.thumbnail.extension}`}
+                  alt={comicItem.title}
                 />
                 <div>
-                  <strong>{characterItem.name}</strong>
-                  {characterItem.description ? (
-                    <p>{truncateText(`${characterItem.description}`, 190)}</p>
+                  <strong>{comicItem.title}</strong>
+                  {comicItem.description ? (
+                    <p>{truncateText(`${comicItem.description}`, 190)}</p>
                   ) : (
-                    <p>
-                      😯 sorry! there&apos;s no description for this character
-                      yet
-                    </p>
+                    <p>there&apos;s no description for this comic</p>
                   )}
                 </div>
                 <FiChevronRight size={20} />
               </Link>
             </>
           ))}
-        </Character>
+        </Comic>
       )}
     </Container>
   );
 };
 
-export default Characters;
+export default Comics;
