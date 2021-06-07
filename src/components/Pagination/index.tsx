@@ -4,7 +4,7 @@ import { Container } from './styles';
 
 type PaginationProps = {
   handleFirstPage(e: number): void;
-  handleLastPage: () => void;
+  handleLastPage(e: number): void;
   handlePaginate(e: number): void;
   currentPage: number;
   totalPages: number;
@@ -93,7 +93,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         className="side-link"
         role="button"
         aria-hidden="true"
-        onClick={() => handleLastPage()}
+        onClick={() => handleLastPage(totalPages)}
       >
         LAST
       </span>

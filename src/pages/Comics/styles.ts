@@ -72,12 +72,11 @@ export const Comic = styled.div`
   margin-top: 80px;
   max-width: 700px;
 
-  .hero-card {
+  .comic-card {
     background: #fff;
     border-radius: 5px;
     width: 100%;
     padding: 24px;
-    text-decoration: none;
     display: flex;
     align-items: center;
     transition: transform 0.2s;

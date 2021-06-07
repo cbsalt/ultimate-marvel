@@ -7,14 +7,9 @@ import { Container } from './styles';
 
 export const NavMenu: React.FC = () => {
   const { open, handleOpenNavMenu } = useContext(MenuContext);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useClickOutside(ref, () => {
-    if (open) handleOpenNavMenu(open);
-  });
 
   return (
-    <Container ref={ref} open={open}>
+    <Container open={open}>
       <ul>
         <li>
           <Link

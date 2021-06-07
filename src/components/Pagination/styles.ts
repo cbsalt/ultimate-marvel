@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 40px 0;
+  margin: 16px 0;
 
   span {
     cursor: pointer;
@@ -14,7 +15,7 @@ export const Container = styled.div`
     margin: 0 16px;
 
     &:hover {
-      color: #f00;
+      color: ${shade(0.2, '#f00')};
     }
 
     &.selected {

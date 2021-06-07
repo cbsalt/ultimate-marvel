@@ -35,7 +35,7 @@ const Comics: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  async function handleSearchHeroe(
+  async function handleSearchComic(
     e: FormEvent<HTMLFormElement>,
   ): Promise<void> {
     e.preventDefault();
@@ -78,7 +78,7 @@ const Comics: React.FC = () => {
     <Container>
       <img src={logoImg} alt="Marvel Logo" />
       <Title>Comics finder</Title>
-      <Form hasError={!!inputError} onSubmit={handleSearchHeroe}>
+      <Form hasError={!!inputError} onSubmit={handleSearchComic}>
         <input
           value={newComic}
           placeholder="Search for comics"
@@ -94,7 +94,7 @@ const Comics: React.FC = () => {
           {comics.map((comicItem) => (
             <>
               <Link
-                className="hero-card"
+                className="comic-card"
                 to={`/comic/${comicItem.id}`}
                 key={comicItem.id}
               >

@@ -42,7 +42,7 @@ const Characters: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  async function handleSearchHeroe(
+  async function handleSearchCharacter(
     e: FormEvent<HTMLFormElement>,
   ): Promise<void> {
     e.preventDefault();
@@ -84,7 +84,7 @@ const Characters: React.FC = () => {
     <Container>
       <img src={logoImg} alt="Marvel Logo" />
       <Title>Characters finder</Title>
-      <Form hasError={!!inputError} onSubmit={handleSearchHeroe}>
+      <Form hasError={!!inputError} onSubmit={handleSearchCharacter}>
         <input
           value={newHero}
           placeholder="Search for your character"

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import Title from '../../components/Title';
@@ -54,7 +55,9 @@ const FavoritesComics: React.FC = () => {
               alt={item.title}
             />
             <div>
-              <strong>{item.title}</strong>
+              <Link to={`/comic/${item.id}`}>
+                <strong>{item.title}</strong>
+              </Link>
             </div>
             <button
               type="button"

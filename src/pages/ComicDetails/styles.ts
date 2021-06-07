@@ -11,7 +11,6 @@ export const Details = styled.section`
   border-radius: 5px;
   width: 100%;
   padding: 24px;
-  text-decoration: none;
   display: flex;
   flex-direction: column;
 

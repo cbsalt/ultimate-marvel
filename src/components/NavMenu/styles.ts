@@ -43,7 +43,6 @@ export const Container = styled.nav<NavMenuProps>`
         color: #a8a8b3;
         display: block;
         font-weight: lighter;
-        text-decoration: none;
         font-size: 16px;
       }
     }

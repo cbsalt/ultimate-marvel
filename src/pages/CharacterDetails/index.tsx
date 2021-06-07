@@ -14,7 +14,14 @@ import ComicsDetails from '../ModalComic';
 
 import api from '../../services/api';
 
-import { Container, Details, Character, ComicsList } from './styles';
+import {
+  Container,
+  Details,
+  Character,
+  ComicsList,
+  Pagination,
+  TotalPages,
+} from './styles';
 import Title from '../../components/Title';
 import Tooltip from '../../components/Tooltip';
 
@@ -45,10 +52,13 @@ interface CharacterDataProps {
 
 interface ResultsProps {
   results: CharacterDataProps[] | ComicDataProps[];
+  total: number;
+  offset: number;
 }
 
 interface DataProps {
   data: ResultsProps;
+  total: number;
 }
 
 const CharacterDetails: React.FC = () => {
@@ -62,6 +72,7 @@ const CharacterDetails: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedComic, setSelectedComic] = useState<any>();
   const [offset, setOffset] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
   const [charactersList, setCharactersList] = useState<CharacterDataProps[]>(
     () => {
@@ -93,16 +104,19 @@ const CharacterDetails: React.FC = () => {
           ),
         ]);
 
-        const responseCharacter = characterItem.data;
-        const characterData = responseCharacter.data.results.map(
-          (item: any) => item,
-        );
+        const { data } = characterItem.data;
+        const characterData = data.results.map((item: any) => item);
 
         const responseComics = comicsList.data;
+
+        const current = responseComics.data.offset;
+        const { total } = responseComics.data;
         const comicsListData = responseComics.data.results.map(
           (item: any) => item,
         );
 
+        setTotalPages(total);
+        setOffset(current);
         setCharacter(characterData);
         setCharacterComics(comicsListData);
       } catch (err) {
@@ -151,18 +165,18 @@ const CharacterDetails: React.FC = () => {
     setModalIsOpen(false);
   };
 
-  const handlePrev = () => {
+  const handlePrevPage = () => {
     setOffset(offset - 1);
   };
 
-  const handleNext = () => {
+  const handleNextPage = () => {
     setOffset(offset + 1);
   };
 
   return (
     <Container>
       <Title to="" title="_character details" />
-      {loading ? (
+      {loading && character.length === 0 ? (
         <Loader />
       ) : (
         <>
@@ -212,26 +226,61 @@ const CharacterDetails: React.FC = () => {
           </Details>
         </>
       )}
-      {characterComics.length > 0 && !loading && (
-        <ComicsList>
-          <div>
-            {character.map((item) => (
-              <strong key={item.name}>Comics of {item.name}</strong>
-            ))}
-            {characterComics.map((comicItem) => (
-              <div
-                key={comicItem.id}
-                onClick={() => handleShowModal(comicItem.id)}
-                aria-hidden="true"
-              >
-                <ul>
-                  <li>{comicItem.title}</li>
-                </ul>
+      {characterComics.length > 0 && (
+        <>
+          <ComicsList>
+            {loading ? (
+              <Loader />
+            ) : (
+              <div>
+                {character.map((item) => (
+                  <strong key={item.name}>Comics of {item.name}</strong>
+                ))}
+                {characterComics.map((comicItem) => (
+                  <div
+                    key={comicItem.id}
+                    onClick={() => handleShowModal(comicItem.id)}
+                    aria-hidden="true"
+                  >
+                    <ul>
+                      <li>{comicItem.title}</li>
+                    </ul>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </ComicsList>
+            )}
+          </ComicsList>
+          <TotalPages>
+            <p>
+              page {offset} of {totalPages}
+            </p>
+          </TotalPages>
+          <Pagination>
+            {offset > 1 && (
+              <span
+                role="button"
+                className="side-link"
+                aria-hidden="true"
+                onClick={() => handlePrevPage()}
+              >
+                PREVIOUS
+              </span>
+            )}
+
+            {offset < totalPages && (
+              <span
+                className="side-link"
+                role="button"
+                aria-hidden="true"
+                onClick={() => handleNextPage()}
+              >
+                NEXT
+              </span>
+            )}
+          </Pagination>
+        </>
       )}
+
       <Modal
         width={800}
         height={500}

@@ -77,7 +77,6 @@ export const Character = styled.div`
     border-radius: 5px;
     width: 100%;
     padding: 24px;
-    text-decoration: none;
     display: flex;
     align-items: center;
     transition: transform 0.2s;

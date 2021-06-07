@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 export const Container = styled.div`
   max-width: 960px;
@@ -11,7 +12,6 @@ export const Details = styled.section`
   border-radius: 5px;
   width: 100%;
   padding: 24px;
-  text-decoration: none;
   display: flex;
   flex-direction: column;
 
@@ -90,7 +90,6 @@ export const ComicsList = styled.div`
   border-radius: 5px;
   width: 100%;
   padding: 24px;
-  text-decoration: none;
   display: flex;
   align-items: center;
   transition: transform 0.2s;
@@ -113,15 +112,33 @@ export const ComicsList = styled.div`
     color: #3d3d4d;
   }
 
-  a {
-    text-decoration: none;
-  }
-
   li {
     font-size: 18px;
     color: #a8a8b3;
     margin-top: 4px;
     list-style: none;
     cursor: pointer;
+  }
+`;
+
+export const TotalPages = styled.div`
+  display: flex;
+  margin: 16px 0;
+  justify-content: center;
+`;
+
+export const Pagination = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0;
+
+  span {
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.38);
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    margin: 0 16px;
   }
 `;
