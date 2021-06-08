@@ -43,4 +43,5 @@ _This project was developed with the following technologies:_
 * [MARVEL API](https://developer.marvel.com/documentation/getting_started)
 * [EditorConfig](https://editorconfig.org/) and [ESLint](https://eslint.org/)/[Prettier](https://prettier.io/)
 
-Made with 🖤 by Charles Sal
+
+<h5 align="center">Made with 🖤 by Charles Sal</h5>
