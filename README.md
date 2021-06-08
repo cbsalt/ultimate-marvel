@@ -2,7 +2,7 @@
 
 [![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
 ## Project description
-Single Page Application created in React displaying content from the Marvel universe. You can search for characters or comics and bookmark them. If you want to remove them from favorites it is also possible. There is a login screen for future implementation.
+Single Page Application created in React displaying content from the Marvel universe. You can search for characters or comics and bookmark them. If you want to remove them from favorites it is also possible.
 
 There is a navigation bar on the left for routes.
 
