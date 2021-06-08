@@ -72,8 +72,6 @@ export const ComicDetails: React.FC = () => {
           `comics/${params.comic}?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
         );
 
-        const responseComic = response.data;
-
         const responseComics = response.data;
         const comicsData = responseComics.data.results.map((item) => item);
 
@@ -90,7 +88,7 @@ export const ComicDetails: React.FC = () => {
     getData();
   }, [params.comic]);
 
-  const handleSaveFavorite = useCallback((item: any) => {
+  const handleSaveFavorite = useCallback((item: ComicDataProps) => {
     const comicItem = {
       ...item,
       uuid: uuidv4(),

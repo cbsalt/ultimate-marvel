@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useCallback, useEffect, useState } from 'react';
 import { MdClose, MdFavorite } from 'react-icons/md';
 import { toast } from 'react-toastify';
@@ -13,8 +12,8 @@ import api from '../../services/api';
 import { Wrapper, Header, AboutComic } from './styles';
 
 interface ComponentProps {
-  id: number;
-  handleCloseModal?: () => void;
+  id: number | undefined;
+  handleCloseModal: () => void;
 }
 
 interface ComicDataProps {
@@ -39,7 +38,10 @@ interface DataProps {
   data: ResultsProps;
 }
 
-const Comics: React.FC<ComponentProps> = ({ id, handleCloseModal }) => {
+const ModalComic: React.FC<ComponentProps> = ({
+  id,
+  handleCloseModal,
+}: ComponentProps) => {
   const [comics, setComics] = useState<ComicDataProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -77,7 +79,7 @@ const Comics: React.FC<ComponentProps> = ({ id, handleCloseModal }) => {
   }, [id]);
 
   const handleSaveFavorite = useCallback(
-    (item: any) => {
+    (item: ComicDataProps) => {
       const comicItem = {
         ...item,
         uuid: uuidv4(),
@@ -141,4 +143,4 @@ const Comics: React.FC<ComponentProps> = ({ id, handleCloseModal }) => {
   );
 };
 
-export default Comics;
+export default ModalComic;

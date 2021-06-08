@@ -1,16 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useRouteMatch } from 'react-router-dom';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { MdFavorite } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 
 import Loader from '../../components/Loader';
 import Modal from '../../components/Modal';
+import Title from '../../components/Title';
+import Tooltip from '../../components/Tooltip';
 
-import ComicsDetails from '../ModalComic';
+import ModalComic from '../ModalComic';
 
 import api from '../../services/api';
 
@@ -22,8 +22,6 @@ import {
   Pagination,
   TotalPages,
 } from './styles';
-import Title from '../../components/Title';
-import Tooltip from '../../components/Tooltip';
 
 interface RouteParams {
   character: string;
@@ -69,7 +67,7 @@ const CharacterDetails: React.FC = () => {
   const [character, setCharacter] = useState<CharacterDataProps[]>([]);
   const [characterComics, setCharacterComics] = useState<ComicDataProps[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedComic, setSelectedComic] = useState<any>();
+  const [selectedComic, setSelectedComic] = useState<undefined | number>(0);
   const [offset, setOffset] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -131,7 +129,7 @@ const CharacterDetails: React.FC = () => {
   }, [params.character, offset]);
 
   const handleSaveFavorite = useCallback(
-    (item: any) => {
+    (item: CharacterDataProps) => {
       const characterItem = {
         ...item,
         uuid: uuidv4(),
@@ -286,7 +284,7 @@ const CharacterDetails: React.FC = () => {
         isOpen={modalIsOpen}
         handleClose={handleCloseModal}
       >
-        <ComicsDetails id={selectedComic} handleCloseModal={handleCloseModal} />
+        <ModalComic id={selectedComic} handleCloseModal={handleCloseModal} />
       </Modal>
     </Container>
   );

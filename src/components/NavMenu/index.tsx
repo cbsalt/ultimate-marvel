@@ -1,7 +1,6 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { MenuContext } from '../../context/Menu';
-import useClickOutside from '../../hooks/useClickOutside';
 
 import { Container } from './styles';
 
