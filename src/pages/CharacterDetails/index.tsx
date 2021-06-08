@@ -58,7 +58,6 @@ interface ResultsProps {
 
 interface DataProps {
   data: ResultsProps;
-  total: number;
 }
 
 const CharacterDetails: React.FC = () => {
