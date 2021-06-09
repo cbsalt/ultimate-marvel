@@ -9,6 +9,8 @@ type ModalProps = {
   width?: number;
   height?: number;
   children: React.ReactNode;
+  className?: string;
+  overlayClassName?: string;
 };
 
 export const Modal: React.FC<ModalProps> = ({
@@ -17,6 +19,8 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   isOpen,
   handleClose,
+  className,
+  overlayClassName,
 }: ModalProps) => {
   const styles: Styles = {
     overlay: {
@@ -50,8 +54,8 @@ export const Modal: React.FC<ModalProps> = ({
       style={styles}
       isOpen={isOpen}
       onRequestClose={handleClose}
-      className="Modal"
-      overlayClassName="Overlay"
+      className={className}
+      overlayClassName={overlayClassName}
     >
       {children}
     </ReactModal>
@@ -63,4 +67,6 @@ export default Modal;
 Modal.defaultProps = {
   width: 400,
   height: 200,
+  className: 'Modal',
+  overlayClassName: 'Overlay',
 };

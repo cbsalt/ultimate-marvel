@@ -46,6 +46,10 @@ export const Character = styled.section`
     display: flex;
     align-items: center;
 
+    @media (max-width: 640px) {
+      flex-direction: column;
+    }
+
     img {
       width: 120px;
       height: 120px;
@@ -56,10 +60,19 @@ export const Character = styled.section`
       display: flex;
       align-items: center;
 
+      @media (max-width: 640px) {
+        flex-direction: column;
+        text-align: center;
+      }
+
       strong {
         font-size: 36px;
         color: #3d3d4d;
         margin: 0px 24px;
+
+        @media (max-width: 640px) {
+          margin: 8px 0;
+        }
       }
 
       button {

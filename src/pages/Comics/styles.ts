@@ -8,6 +8,10 @@ interface FormProps {
 export const Container = styled.div`
   max-width: 960px;
   margin: 48px auto;
+
+  @media (max-width: 640px) {
+    padding: 0 24px;
+  }
 `;
 
 export const Title = styled.h1`
@@ -55,6 +59,10 @@ export const Form = styled.form<FormProps>`
     font-size: 24px;
     font-weight: bold;
     transition: background-color 0.2s;
+
+    @media (max-width: 640px) {
+      font-size: 16px;
+    }
 
     &:hover {
       background: ${shade(0.2, '#f00')};

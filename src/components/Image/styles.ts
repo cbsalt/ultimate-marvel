@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  @media (max-width: 640px) {
+    display: none;
+  }
+
   .img {
     display: block;
     max-width: 100%;

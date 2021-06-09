@@ -25,20 +25,32 @@ export const AboutComic = styled.section`
   margin-top: 24px;
   max-height: 400px;
 
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
+
   img {
-    max-height: 360px;
-    margin-right: 24px;
+    max-height: 380px;
   }
 
   .wrapper-details {
     flex-direction: column;
-    width: 480px;
+    width: 100%;
+    padding-left: 24px;
     overflow: scroll;
+
+    @media (max-width: 640px) {
+      padding-left: 0px;
+    }
   }
 
   p {
     margin-bottom: 16px;
     color: #6c6c80;
+
+    @media (max-width: 640px) {
+      width: 328px;
+    }
   }
 
   li {
@@ -64,6 +76,10 @@ export const AboutComic = styled.section`
     height: 80px;
     align-items: center;
     justify-content: center;
+
+    @media (max-width: 640px) {
+      justify-content: left;
+    }
   }
 
   button {

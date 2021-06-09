@@ -4,6 +4,7 @@ import { useRouteMatch } from 'react-router-dom';
 import { MdFavorite } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import ReactModal from 'react-modal';
 
 import Loader from '../../components/Loader';
 import Modal from '../../components/Modal';
@@ -69,7 +70,7 @@ const CharacterDetails: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedComic, setSelectedComic] = useState<undefined | number>(0);
   const [offset, setOffset] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalComics, setTotalPages] = useState(0);
 
   const [charactersList, setCharactersList] = useState<CharacterDataProps[]>(
     () => {
@@ -107,7 +108,7 @@ const CharacterDetails: React.FC = () => {
         const responseComics = comicsList.data;
 
         const current = responseComics.data.offset;
-        const { total } = responseComics.data;
+        const total = Math.round(responseComics.data.total / 20);
         const comicsListData = responseComics.data.results.map(
           (item: any) => item,
         );
@@ -163,11 +164,11 @@ const CharacterDetails: React.FC = () => {
   };
 
   const handlePrevPage = () => {
-    setOffset(offset - 1);
+    setOffset(offset - 20);
   };
 
   const handleNextPage = () => {
-    setOffset(offset + 1);
+    setOffset(offset + 20);
   };
 
   return (
@@ -249,7 +250,7 @@ const CharacterDetails: React.FC = () => {
           </ComicsList>
           <TotalPages>
             <p>
-              page {offset} of {totalPages}
+              page {offset / 20} of {totalComics}
             </p>
           </TotalPages>
           <Pagination>
@@ -264,7 +265,7 @@ const CharacterDetails: React.FC = () => {
               </span>
             )}
 
-            {offset < totalPages && (
+            {offset < totalComics && totalComics > 20 && (
               <span
                 className="side-link"
                 role="button"
@@ -283,6 +284,7 @@ const CharacterDetails: React.FC = () => {
         height={500}
         isOpen={modalIsOpen}
         handleClose={handleCloseModal}
+        className="Modal"
       >
         <ModalComic id={selectedComic} handleCloseModal={handleCloseModal} />
       </Modal>
