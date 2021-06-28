@@ -98,30 +98,27 @@ const Characters: React.FC = () => {
       ) : (
         <Character>
           {characters.map((characterItem) => (
-            <>
-              <Link
-                className="hero-card"
-                to={`/character/${characterItem.id}`}
-                key={characterItem.id}
-              >
-                <img
-                  src={`${characterItem.thumbnail.path}.${characterItem.thumbnail.extension}`}
-                  alt={characterItem.name}
-                />
-                <div>
-                  <strong>{characterItem.name}</strong>
-                  {characterItem.description ? (
-                    <p>{truncateText(`${characterItem.description}`, 190)}</p>
-                  ) : (
-                    <p>
-                      😯 sorry! there&apos;s no description for this character
-                      yet
-                    </p>
-                  )}
-                </div>
-                <FiChevronRight size={20} />
-              </Link>
-            </>
+            <Link
+              className="hero-card"
+              to={`/character/${characterItem.id}`}
+              key={characterItem.id}
+            >
+              <img
+                src={`${characterItem.thumbnail.path}.${characterItem.thumbnail.extension}`}
+                alt={characterItem.name}
+              />
+              <div>
+                <strong>{characterItem.name}</strong>
+                {characterItem.description ? (
+                  <p>{truncateText(`${characterItem.description}`, 190)}</p>
+                ) : (
+                  <p>
+                    😯 sorry! there&apos;s no description for this character yet
+                  </p>
+                )}
+              </div>
+              <FiChevronRight size={20} />
+            </Link>
           ))}
         </Character>
       )}

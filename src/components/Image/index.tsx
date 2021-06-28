@@ -11,7 +11,7 @@ type ImageProps = {
 const Image: React.FC<ImageProps> = ({ alt, src }: ImageProps) => {
   const [skeleton, setSkeleton] = useState(true);
 
-  function handleLoad({ target }: { target: any }) {
+  function handleLoad({ target }: any) {
     setSkeleton(false);
     target.style.opacity = 1;
   }

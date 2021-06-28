@@ -17,7 +17,7 @@ interface CharactersDataProps {
   };
 }
 
-const FavoritesCharacters: React.FC = () => {
+const FavoriteCharacters: React.FC = () => {
   const [characters, setCharacters] = useState<CharactersDataProps[]>(() => {
     const storagedCharacter = localStorage.getItem('@Marvel:characters');
 
@@ -72,4 +72,4 @@ const FavoritesCharacters: React.FC = () => {
   );
 };
 
-export default FavoritesCharacters;
+export default FavoriteCharacters;

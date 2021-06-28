@@ -17,7 +17,7 @@ interface ComicDataProps {
   };
 }
 
-const FavoritesComics: React.FC = () => {
+const FavoriteComics: React.FC = () => {
   const [comics, setComics] = useState<ComicDataProps[]>(() => {
     const storagedComics = localStorage.getItem('@Marvel:comics');
 
@@ -46,7 +46,7 @@ const FavoritesComics: React.FC = () => {
 
   return (
     <Container>
-      <Title to="comics" title="_favorites comics" />
+      <Title to="comics" title="_favorite comics" />
       {comics.map((item) => (
         <Comic key={item.uuid}>
           <>
@@ -72,4 +72,4 @@ const FavoritesComics: React.FC = () => {
   );
 };
 
-export default FavoritesComics;
+export default FavoriteComics;

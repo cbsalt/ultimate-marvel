@@ -5,9 +5,9 @@ import Characters from '../pages/Characters';
 import Comics from '../pages/Comics';
 import ComicDetails from '../pages/ComicDetails';
 import CharacterDetails from '../pages/CharacterDetails';
-import FavoritesCharacters from '../pages/FavoritesCharacters';
+import FavoriteCharacters from '../pages/FavoriteCharacters';
 
-import FavoritesComics from '../pages/FavoritesComics';
+import FavoriteComics from '../pages/FavoriteComics';
 import { MenuContext } from '../context/Menu';
 
 import NavMenu from '../components/NavMenu';
@@ -37,8 +37,8 @@ const Routes: React.FC = () => {
         <Route path="/comics" component={Comics} />
         <Route path="/comic/:comic+" component={ComicDetails} />
         <Route path="/character/:character+" component={CharacterDetails} />
-        <Route path="/favorites/characters" component={FavoritesCharacters} />
-        <Route path="/favorites/comics" component={FavoritesComics} />
+        <Route path="/favorites/characters" component={FavoriteCharacters} />
+        <Route path="/favorites/comics" component={FavoriteComics} />
       </Switch>
     </BrowserRouter>
   );

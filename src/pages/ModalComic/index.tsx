@@ -105,8 +105,8 @@ const ModalComic: React.FC<ComponentProps> = ({
       ) : (
         <>
           {comics.map((comic) => (
-            <>
-              <AboutComic key={comic.id}>
+            <React.Fragment key={comic.id}>
+              <AboutComic>
                 <Image
                   src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
                   alt={comic.title}
@@ -135,7 +135,7 @@ const ModalComic: React.FC<ComponentProps> = ({
                   </div>
                 </div>
               </AboutComic>
-            </>
+            </React.Fragment>
           ))}
         </>
       )}

@@ -4,7 +4,6 @@ import { useRouteMatch } from 'react-router-dom';
 import { MdFavorite } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
-import ReactModal from 'react-modal';
 
 import Loader from '../../components/Loader';
 import Modal from '../../components/Modal';
@@ -201,8 +200,8 @@ const CharacterDetails: React.FC = () => {
           </Character>
           <Details>
             {character.map((item) => (
-              <>
-                <div key={item.description}>
+              <React.Fragment key={item.description}>
+                <div>
                   {item.description ? (
                     <p>{item.description}</p>
                   ) : (
@@ -219,7 +218,7 @@ const CharacterDetails: React.FC = () => {
                     <span>_collects</span>
                   </li>
                 </ul>
-              </>
+              </React.Fragment>
             ))}
           </Details>
         </>

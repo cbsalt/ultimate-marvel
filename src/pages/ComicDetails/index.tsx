@@ -131,8 +131,8 @@ export const ComicDetails: React.FC = () => {
           </Comic>
           <Details>
             {comic.map((item) => (
-              <>
-                <div key={item.description}>
+              <React.Fragment key={item.description}>
+                <div>
                   {item.description ? (
                     <p>{item.description}</p>
                   ) : (
@@ -165,7 +165,7 @@ export const ComicDetails: React.FC = () => {
                     )}
                   </li>
                 </ul>
-              </>
+              </React.Fragment>
             ))}
           </Details>
         </>

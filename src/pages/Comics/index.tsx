@@ -92,27 +92,25 @@ const Comics: React.FC = () => {
       ) : (
         <Comic>
           {comics.map((comicItem) => (
-            <>
-              <Link
-                className="comic-card"
-                to={`/comic/${comicItem.id}`}
-                key={comicItem.id}
-              >
-                <img
-                  src={`${comicItem.thumbnail.path}.${comicItem.thumbnail.extension}`}
-                  alt={comicItem.title}
-                />
-                <div>
-                  <strong>{comicItem.title}</strong>
-                  {comicItem.description ? (
-                    <p>{truncateText(`${comicItem.description}`, 190)}</p>
-                  ) : (
-                    <p>there&apos;s no description for this comic</p>
-                  )}
-                </div>
-                <FiChevronRight size={20} />
-              </Link>
-            </>
+            <Link
+              className="comic-card"
+              to={`/comic/${comicItem.id}`}
+              key={comicItem.id}
+            >
+              <img
+                src={`${comicItem.thumbnail.path}.${comicItem.thumbnail.extension}`}
+                alt={comicItem.title}
+              />
+              <div>
+                <strong>{comicItem.title}</strong>
+                {comicItem.description ? (
+                  <p>{truncateText(`${comicItem.description}`, 190)}</p>
+                ) : (
+                  <p>there&apos;s no description for this comic</p>
+                )}
+              </div>
+              <FiChevronRight size={20} />
+            </Link>
           ))}
         </Comic>
       )}
