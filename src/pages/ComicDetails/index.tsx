@@ -51,7 +51,7 @@ export const ComicDetails: React.FC = () => {
   const { params } = useRouteMatch<RouteParams>();
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [, setError] = useState(false);
 
   const [comic, setComic] = useState<ComicDataProps[]>([]);
   const [comicsList, setComicsList] = useState<ComicDataProps[]>(() => {
@@ -98,7 +98,7 @@ export const ComicDetails: React.FC = () => {
     localStorage.setItem('@Marvel:comics', JSON.stringify(newComicsList));
     setComicsList(newComicsList);
 
-    toast.success('favorite comic successfully deleted! 👍');
+    toast.success('comic saved to your favorite comics 📖');
   }, []);
 
   return (

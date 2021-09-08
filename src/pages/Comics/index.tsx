@@ -33,7 +33,7 @@ const Comics: React.FC = () => {
   const [inputError, setInputError] = useState('');
   const [comics, setComics] = useState<ComicsDataProps[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [, setError] = useState(false);
 
   async function handleSearchComic(
     e: FormEvent<HTMLFormElement>,

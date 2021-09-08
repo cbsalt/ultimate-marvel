@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useRouteMatch } from 'react-router-dom';
@@ -62,7 +63,7 @@ const CharacterDetails: React.FC = () => {
   const { params } = useRouteMatch<RouteParams>();
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [, setError] = useState(false);
 
   const [character, setCharacter] = useState<CharacterDataProps[]>([]);
   const [characterComics, setCharacterComics] = useState<ComicDataProps[]>([]);

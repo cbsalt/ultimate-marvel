@@ -44,7 +44,7 @@ const ModalComic: React.FC<ComponentProps> = ({
 }: ComponentProps) => {
   const [comics, setComics] = useState<ComicDataProps[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [, setError] = useState(false);
   const [comicsList, setComicsList] = useState<ComicDataProps[]>(() => {
     const storagedCharacters = localStorage.getItem('@Marvel:comics');
 

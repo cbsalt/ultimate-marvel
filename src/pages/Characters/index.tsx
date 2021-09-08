@@ -40,7 +40,7 @@ const Characters: React.FC = () => {
   const [inputError, setInputError] = useState('');
   const [characters, setCharacters] = useState<CharactersDataProps[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [, setError] = useState(false);
 
   async function handleSearchCharacter(
     e: FormEvent<HTMLFormElement>,
