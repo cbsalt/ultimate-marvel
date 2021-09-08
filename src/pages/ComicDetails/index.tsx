@@ -98,7 +98,7 @@ export const ComicDetails: React.FC = () => {
     localStorage.setItem('@Marvel:comics', JSON.stringify(newComicsList));
     setComicsList(newComicsList);
 
-    toast.success('character saved to your favorite characters 🦸‍♀️');
+    toast.success('favorite comic successfully deleted! 👍');
   }, []);
 
   return (
