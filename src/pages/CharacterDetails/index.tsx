@@ -69,7 +69,7 @@ const CharacterDetails: React.FC = () => {
   const [characterComics, setCharacterComics] = useState<ComicDataProps[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedComic, setSelectedComic] = useState<undefined | number>(0);
-  const [offset, setOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const [totalComics, setTotalPages] = useState(0);
 
   const [charactersList, setCharactersList] = useState<CharacterDataProps[]>(
@@ -84,7 +84,7 @@ const CharacterDetails: React.FC = () => {
   );
 
   useEffect(() => {
-    async function getData(): Promise<void> {
+    async function fetchCharactersData(): Promise<void> {
       try {
         setLoading(true);
 
@@ -96,7 +96,7 @@ const CharacterDetails: React.FC = () => {
             `characters/${params.character}/comics?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
             {
               params: {
-                offset,
+                offset: currentPage,
               },
             },
           ),
@@ -114,7 +114,7 @@ const CharacterDetails: React.FC = () => {
         );
 
         setTotalPages(total);
-        setOffset(current);
+        setCurrentPage(current);
         setCharacter(characterData);
         setCharacterComics(comicsListData);
       } catch (err) {
@@ -126,22 +126,25 @@ const CharacterDetails: React.FC = () => {
       }
     }
 
-    getData();
-  }, [params.character, offset]);
+    fetchCharactersData();
+  }, [params.character, currentPage]);
 
   const handleSaveFavorite = useCallback(
     (item: CharacterDataProps) => {
-      const characterItem = {
+      const newFavoriteCharacterItem = {
         ...item,
         uuid: uuidv4(),
       };
-      const newCharactersList = [...charactersList, characterItem];
+      const newFavoriteCharactersList = [
+        ...charactersList,
+        newFavoriteCharacterItem,
+      ];
 
       localStorage.setItem(
         '@Marvel:characters',
-        JSON.stringify(newCharactersList),
+        JSON.stringify(newFavoriteCharactersList),
       );
-      setCharactersList(newCharactersList);
+      setCharactersList(newFavoriteCharactersList);
 
       toast.success('character saved to your favorite characters 🦸‍♀️');
     },
@@ -151,10 +154,10 @@ const CharacterDetails: React.FC = () => {
   const handleShowModal = useCallback(
     (id: number) => {
       const comic = characterComics.find((item) => item.id === id);
-      const selectedId = comic?.id;
+      const selectedComicId = comic?.id;
 
       setModalIsOpen(true);
-      setSelectedComic(selectedId);
+      setSelectedComic(selectedComicId);
     },
     [characterComics],
   );
@@ -164,11 +167,11 @@ const CharacterDetails: React.FC = () => {
   };
 
   const handlePrevPage = () => {
-    setOffset(offset - 20);
+    setCurrentPage(currentPage - 20);
   };
 
   const handleNextPage = () => {
-    setOffset(offset + 20);
+    setCurrentPage(currentPage + 20);
   };
 
   return (
@@ -250,11 +253,11 @@ const CharacterDetails: React.FC = () => {
           </ComicsList>
           <TotalPages>
             <p>
-              page {offset / 20} of {totalComics}
+              page {currentPage / 20} of {totalComics}
             </p>
           </TotalPages>
           <Pagination>
-            {offset > 1 && (
+            {currentPage > 1 && (
               <span
                 role="button"
                 className="side-link"
@@ -265,7 +268,7 @@ const CharacterDetails: React.FC = () => {
               </span>
             )}
 
-            {offset < totalComics && totalComics > 20 && (
+            {currentPage < totalComics && totalComics > 20 && (
               <span
                 className="side-link"
                 role="button"

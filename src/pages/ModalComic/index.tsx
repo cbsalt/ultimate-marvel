@@ -42,7 +42,7 @@ const ModalComic: React.FC<ComponentProps> = ({
   id,
   handleCloseModal,
 }: ComponentProps) => {
-  const [comics, setComics] = useState<ComicDataProps[]>([]);
+  const [comic, setComic] = useState<ComicDataProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [, setError] = useState(false);
   const [comicsList, setComicsList] = useState<ComicDataProps[]>(() => {
@@ -58,14 +58,14 @@ const ModalComic: React.FC<ComponentProps> = ({
     async function getComics(): Promise<void> {
       try {
         setLoading(true);
-        const response = await api.get<DataProps>(
+        const fetchComicsData = await api.get<DataProps>(
           `comics/${id}?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
         );
 
-        const responseComics = response.data;
-        const comicsData = responseComics.data.results.map((item) => item);
+        const response = fetchComicsData.data;
+        const comicData = response.data.results.map((item) => item);
 
-        setComics(comicsData);
+        setComic(comicData);
       } catch (err) {
         toast.error('😥 whoops! there was an error! try again later.');
 
@@ -78,7 +78,7 @@ const ModalComic: React.FC<ComponentProps> = ({
     getComics();
   }, [id]);
 
-  const handleSaveFavorite = useCallback(
+  const handleSaveFavoriteComic = useCallback(
     (item: ComicDataProps) => {
       const comicItem = {
         ...item,
@@ -104,30 +104,30 @@ const ModalComic: React.FC<ComponentProps> = ({
         <Loader />
       ) : (
         <>
-          {comics.map((comic) => (
-            <React.Fragment key={comic.id}>
+          {comic.map((item) => (
+            <React.Fragment key={item.id}>
               <AboutComic>
                 <Image
-                  src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-                  alt={comic.title}
+                  src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
+                  alt={item.title}
                 />
                 <div className="wrapper-details">
-                  <p>{comic.description}</p>
+                  <p>{item.description}</p>
                   <ul>
                     <li>
                       <strong>Serie</strong>
-                      <span>{comic.series.name}</span>
+                      <span>{item.series.name}</span>
                     </li>
                     <li>
                       <strong>Pages</strong>
-                      <span>{comic.pageCount}</span>
+                      <span>{item.pageCount}</span>
                     </li>
                   </ul>
                   <div className="wrapper-tooltip">
                     <Tooltip text="add to favorites">
                       <button
                         type="button"
-                        onClick={() => handleSaveFavorite(comic)}
+                        onClick={() => handleSaveFavoriteComic(item)}
                       >
                         <MdFavorite size={28} color="#ffffff" />
                       </button>

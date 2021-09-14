@@ -36,7 +36,7 @@ interface DataProps {
 }
 
 const Characters: React.FC = () => {
-  const [newHero, setNewHero] = useState('');
+  const [newCharacter, setNewCharacter] = useState('');
   const [inputError, setInputError] = useState('');
   const [characters, setCharacters] = useState<CharactersDataProps[]>([]);
   const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ const Characters: React.FC = () => {
     e: FormEvent<HTMLFormElement>,
   ): Promise<void> {
     e.preventDefault();
-    if (!newHero) {
+    if (!newCharacter) {
       setInputError('type here first, please! 🤓');
       return;
     }
@@ -54,22 +54,22 @@ const Characters: React.FC = () => {
     try {
       setLoading(true);
 
-      const response = await api.get<DataProps>(
-        `characters?nameStartsWith=${newHero}&ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
+      const fetchCharactersData = await api.get<DataProps>(
+        `characters?nameStartsWith=${newCharacter}&ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
       );
 
-      const character = response.data;
+      const response = fetchCharactersData.data;
 
-      const dataHero = character.data.results.map((item) => item);
+      const charactersList = response.data.results.map((item) => item);
 
-      if (dataHero.length === 0) {
+      if (charactersList.length === 0) {
         setInputError(`looks like this character is busy or doesn't exist! 😥`);
         setCharacters([]);
         return;
       }
 
-      setCharacters(dataHero);
-      setNewHero('');
+      setCharacters(charactersList);
+      setNewCharacter('');
       setInputError('');
     } catch (err) {
       toast.error('😥 whoops! there was an error! try again later.');
@@ -86,9 +86,9 @@ const Characters: React.FC = () => {
       <Title>Characters finder</Title>
       <Form hasError={!!inputError} onSubmit={handleSearchCharacter}>
         <input
-          value={newHero}
+          value={newCharacter}
           placeholder="Search for your character"
-          onChange={(e) => setNewHero(e.target.value)}
+          onChange={(e) => setNewCharacter(e.target.value)}
         />
         <button type="submit">Assemble!</button>
       </Form>

@@ -18,50 +18,52 @@ interface CharactersDataProps {
 }
 
 const FavoriteCharacters: React.FC = () => {
-  const [characters, setCharacters] = useState<CharactersDataProps[]>(() => {
-    const storagedCharacter = localStorage.getItem('@Marvel:characters');
+  const [charactersList, setCharactersList] = useState<CharactersDataProps[]>(
+    () => {
+      const storagedCharacter = localStorage.getItem('@Marvel:characters');
 
-    if (storagedCharacter) {
-      return JSON.parse(storagedCharacter);
-    }
-    return [];
-  });
+      if (storagedCharacter) {
+        return JSON.parse(storagedCharacter);
+      }
+      return [];
+    },
+  );
 
   useEffect(() => {
-    setCharacters([...characters]);
+    setCharactersList((prevState) => [...prevState]);
   }, []);
 
-  const handleRemoveFavorite = useCallback(
+  const handleRemoveFavoriteCharacter = useCallback(
     (id: string) => {
-      const filtered = characters.filter(
+      const filtered = charactersList.filter(
         (filteredItem) => filteredItem.uuid !== id,
       );
 
-      setCharacters(filtered);
+      setCharactersList(filtered);
       localStorage.setItem('@Marvel:characters', JSON.stringify(filtered));
       toast.success('favorite character successfully deleted! 👍');
     },
-    [characters],
+    [charactersList],
   );
 
   return (
     <Container>
       <Title to="" title="_favorite characters" />
-      {characters.map((item) => (
-        <Character key={item.uuid}>
+      {charactersList.map((character) => (
+        <Character key={character.uuid}>
           <>
             <img
-              src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-              alt={item.name}
+              src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+              alt={character.name}
             />
             <div>
-              <Link to={`/character/${item.id}`}>
-                <strong>{item.name}</strong>
+              <Link to={`/character/${character.id}`}>
+                <strong>{character.name}</strong>
               </Link>
             </div>
             <button
               type="button"
-              onClick={() => handleRemoveFavorite(item.uuid)}
+              onClick={() => handleRemoveFavoriteCharacter(character.uuid)}
             >
               <FaTrash size={28} color="#ffffff" />
             </button>

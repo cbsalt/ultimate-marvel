@@ -47,21 +47,21 @@ const Comics: React.FC = () => {
     try {
       setLoading(true);
 
-      const response = await api.get<DataProps>(
+      const fetchComicsData = await api.get<DataProps>(
         `comics?titleStartsWith=${newComic}&ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
       );
 
-      const comic = response.data;
+      const response = fetchComicsData.data;
 
-      const dataComic = comic.data.results.map((item) => item);
+      const listComics = response.data.results.map((item) => item);
 
-      if (dataComic.length === 0) {
+      if (listComics.length === 0) {
         setInputError(`looks like this comic doesn't exist! 😥`);
         setComics([]);
         return;
       }
 
-      setComics(dataComic);
+      setComics(listComics);
       setNewComic('');
       setInputError('');
     } catch (err) {

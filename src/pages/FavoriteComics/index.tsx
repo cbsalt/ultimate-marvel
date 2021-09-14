@@ -18,7 +18,7 @@ interface ComicDataProps {
 }
 
 const FavoriteComics: React.FC = () => {
-  const [comics, setComics] = useState<ComicDataProps[]>(() => {
+  const [comicsList, setComicsList] = useState<ComicDataProps[]>(() => {
     const storagedComics = localStorage.getItem('@Marvel:comics');
 
     if (storagedComics) {
@@ -28,40 +28,40 @@ const FavoriteComics: React.FC = () => {
   });
 
   useEffect(() => {
-    setComics([...comics]);
+    setComicsList((prevState) => [...prevState]);
   }, []);
 
-  const handleRemoveFavorite = useCallback(
+  const handleRemoveFavoriteComic = useCallback(
     (id: string) => {
-      const filtered = comics.filter(
+      const filtered = comicsList.filter(
         (filteredItem) => filteredItem.uuid !== id,
       );
 
-      setComics(filtered);
+      setComicsList(filtered);
       localStorage.setItem('@Marvel:comics', JSON.stringify(filtered));
       toast.success('favorite comic successfully deleted! 👍');
     },
-    [comics],
+    [comicsList],
   );
 
   return (
     <Container>
       <Title to="comics" title="_favorite comics" />
-      {comics.map((item) => (
-        <Comic key={item.uuid}>
+      {comicsList.map((comic) => (
+        <Comic key={comic.uuid}>
           <>
             <img
-              src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-              alt={item.title}
+              src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+              alt={comic.title}
             />
             <div>
-              <Link to={`/comic/${item.id}`}>
-                <strong>{item.title}</strong>
+              <Link to={`/comic/${comic.id}`}>
+                <strong>{comic.title}</strong>
               </Link>
             </div>
             <button
               type="button"
-              onClick={() => handleRemoveFavorite(item.uuid)}
+              onClick={() => handleRemoveFavoriteComic(comic.uuid)}
             >
               <FaTrash size={28} color="#ffffff" />
             </button>

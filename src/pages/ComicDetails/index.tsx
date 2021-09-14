@@ -89,11 +89,11 @@ export const ComicDetails: React.FC = () => {
   }, [params.comic]);
 
   const handleSaveFavorite = useCallback((item: ComicDataProps) => {
-    const comicItem = {
+    const newComicItem = {
       ...item,
       uuid: uuidv4(),
     };
-    const newComicsList = [...comicsList, comicItem];
+    const newComicsList = [...comicsList, newComicItem];
 
     localStorage.setItem('@Marvel:comics', JSON.stringify(newComicsList));
     setComicsList(newComicsList);
