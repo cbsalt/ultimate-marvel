@@ -131,6 +131,36 @@ export const ComicsList = styled.div`
     list-style: none;
     cursor: pointer;
   }
+
+  .skeleton-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .skeleton-loader {
+    width: 100%;
+    max-width: 560px;
+    height: 18px;
+    margin-top: 6px;
+    display: block;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 80%
+      ),
+      lightgray;
+    background-repeat: repeat-y;
+    background-size: 50px 500px;
+    animation: shine 1s infinite;
+  }
+
+  @keyframes shine {
+    to {
+      background-position: 100% 0;
+    }
+  }
 `;
 
 export const TotalPages = styled.div`

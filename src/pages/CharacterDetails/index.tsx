@@ -231,7 +231,19 @@ const CharacterDetails: React.FC = () => {
         <>
           <ComicsList>
             {loading ? (
-              <Loader />
+              <div className="skeleton-container">
+                <span
+                  className="skeleton-loader"
+                  style={{
+                    height: '24px',
+                    marginBottom: '6px',
+                    maxWidth: '240px',
+                  }}
+                />
+                {characterComics.map(() => (
+                  <span key={Math.random()} className="skeleton-loader" />
+                ))}
+              </div>
             ) : (
               <div>
                 {character.map((item) => (
@@ -251,11 +263,13 @@ const CharacterDetails: React.FC = () => {
               </div>
             )}
           </ComicsList>
-          <TotalPages>
-            <p>
-              page {currentPage / 20} of {totalComics}
-            </p>
-          </TotalPages>
+          {totalComics > 20 && (
+            <TotalPages>
+              <p>
+                page {currentPage / 20} of {Math.ceil(totalComics / 20)}
+              </p>
+            </TotalPages>
+          )}
           <Pagination>
             {currentPage > 1 && (
               <span
