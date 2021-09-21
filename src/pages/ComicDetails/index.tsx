@@ -11,7 +11,7 @@ import Tooltip from '../../components/Tooltip';
 import ComicsServices from '../../services/ComicsServices';
 import { truncateText } from '../../utils/truncateText';
 
-import { Container, Comic, Details } from './styles';
+import { Container, ComicHeader, DetailsContainer } from './styles';
 
 interface RouteParams {
   comic: string;
@@ -104,7 +104,7 @@ export const ComicDetails: React.FC = () => {
         <Loader />
       ) : (
         <>
-          <Comic>
+          <ComicHeader>
             {comic.map((item) => (
               <header key={item.id}>
                 <img
@@ -124,8 +124,8 @@ export const ComicDetails: React.FC = () => {
                 </div>
               </header>
             ))}
-          </Comic>
-          <Details>
+          </ComicHeader>
+          <DetailsContainer>
             {comic.map((item) => (
               <React.Fragment key={item.description}>
                 <div>
@@ -163,7 +163,7 @@ export const ComicDetails: React.FC = () => {
                 </ul>
               </React.Fragment>
             ))}
-          </Details>
+          </DetailsContainer>
         </>
       )}
     </Container>

@@ -15,11 +15,11 @@ import ModalComic from '../ModalComic';
 
 import {
   Container,
-  Details,
-  Character,
+  CharacterDescription,
+  DetailsContainer,
   ComicsList,
-  Pagination,
   TotalPages,
+  Pagination,
 } from './styles';
 
 interface RouteParams {
@@ -164,7 +164,7 @@ const CharacterDetails: React.FC = () => {
         <Loader />
       ) : (
         <>
-          <Character>
+          <CharacterDescription>
             {character.map((item) => (
               <header key={item.id}>
                 <img
@@ -184,8 +184,8 @@ const CharacterDetails: React.FC = () => {
                 </div>
               </header>
             ))}
-          </Character>
-          <Details>
+          </CharacterDescription>
+          <DetailsContainer>
             {character.map((item) => (
               <React.Fragment key={item.description}>
                 <div>
@@ -207,7 +207,7 @@ const CharacterDetails: React.FC = () => {
                 </ul>
               </React.Fragment>
             ))}
-          </Details>
+          </DetailsContainer>
         </>
       )}
       {characterComics.length > 0 && (

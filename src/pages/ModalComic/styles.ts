@@ -46,7 +46,7 @@ export const AboutComic = styled.section`
 
   p {
     margin-bottom: 16px;
-    color: #6c6c80;
+    color: ${({ theme }) => theme.colors.gray[300]};
 
     @media (max-width: 640px) {
       width: 328px;
@@ -68,7 +68,7 @@ export const AboutComic = styled.section`
     span {
       display: block;
       margin-top: 4px;
-      color: #6c6c80;
+      color: ${({ theme }) => theme.colors.gray[300]};
     }
   }
   .wrapper-tooltip {

@@ -25,13 +25,13 @@ export const Container = styled.nav<NavMenuProps>`
 
     li {
       padding: 15px 0px;
-      border-top: 1px solid #efefef;
+      border-top: 1px solid ${({ theme }) => theme.colors.primary.light};
       transition: all 0.25s ease-out;
-      border-left: 0px solid #efefef;
+      border-left: 0px solid ${({ theme }) => theme.colors.primary.light};
       padding-left: 0px;
 
       &:hover {
-        border-left: 10px solid #fff;
+        border-left: 10px solid ${({ theme }) => theme.colors.danger.dark};
         padding-left: 10px;
       }
 

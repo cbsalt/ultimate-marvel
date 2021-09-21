@@ -19,7 +19,7 @@ export const Container = styled.div`
     }
 
     &.selected {
-      color: #fff;
+      color: ${({ theme }) => theme.colors.primary.lighter};
       font-weight: 700;
     }
 

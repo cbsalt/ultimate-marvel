@@ -1,45 +1,12 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 export const Container = styled.div`
   max-width: 960px;
   margin: 48px auto;
 `;
 
-export const Details = styled.section`
-  margin-top: 40px;
-  background: ${({ theme }) => theme.colors.primary.lighter};
-  border-radius: 5px;
-  width: 100%;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-
-  ul {
-    display: flex;
-    list-style: none;
-    margin-top: 40px;
-
-    li {
-      & + li {
-        margin-left: 80px;
-      }
-
-      strong {
-        display: block;
-        font-size: 36px;
-        color: ${({ theme }) => theme.colors.gray[900]};
-      }
-
-      span {
-        display: block;
-        margin-top: 4px;
-        color: ${({ theme }) => theme.colors.gray[300]};
-      }
-    }
-  }
-`;
-
-export const Character = styled.section`
+export const CharacterDescription = styled.section`
   margin-top: 40px;
 
   header {
@@ -96,9 +63,43 @@ export const Character = styled.section`
   }
 `;
 
+export const DetailsContainer = styled.section`
+  margin-top: 40px;
+  background: ${({ theme }) => theme.colors.primary.lighter};
+  border-radius: 5px;
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+
+  ul {
+    display: flex;
+    list-style: none;
+    margin-top: 40px;
+
+    li {
+      & + li {
+        margin-left: 80px;
+      }
+
+      strong {
+        display: block;
+        font-size: 36px;
+        color: ${({ theme }) => theme.colors.gray[900]};
+      }
+
+      span {
+        display: block;
+        margin-top: 4px;
+        color: ${({ theme }) => theme.colors.gray[300]};
+      }
+    }
+  }
+`;
+
 export const ComicsList = styled.div`
   margin-top: 40px;
-  background: #fff;
+  background: ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 5px;
   width: 100%;
   padding: 24px;
@@ -106,18 +107,6 @@ export const ComicsList = styled.div`
   align-items: center;
   transition: transform 0.2s;
   position: relative;
-
-  .prev-page {
-    position: absolute;
-    left: 0;
-    right: 0;
-  }
-
-  .next-page {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
 
   strong {
     font-size: 24px;
@@ -182,5 +171,10 @@ export const Pagination = styled.div`
     font-weight: 700;
     letter-spacing: 0.25px;
     margin: 0 16px;
+
+    :hover {
+      color: ${shade(0.2, 'rgba(0, 0, 0, 0.38)')};
+      transition: 0.4s;
+    }
   }
 `;

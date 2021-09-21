@@ -3,6 +3,7 @@ export default {
     background: '#f0f0f5',
     primary: {
       lighter: '#fff',
+      light: '#efefef',
     },
     gray: {
       900: '#3a3a3a',
