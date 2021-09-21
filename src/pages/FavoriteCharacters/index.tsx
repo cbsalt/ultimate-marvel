@@ -70,7 +70,7 @@ const FavoriteCharacters: React.FC = () => {
                   type="button"
                   onClick={() => handleRemoveFavoriteCharacter(character.uuid)}
                 >
-                  <FaTrash size={28} color="#ffffff" />
+                  <FaTrash size={28} color="#fff" />
                 </button>
               </>
             </Character>

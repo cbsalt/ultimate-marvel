@@ -12,7 +12,7 @@ export const Container = styled.div`
 export const Character = styled.div`
   margin-top: 80px;
   max-width: 700px;
-  background: #fff;
+  background: ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 5px;
   width: 100%;
   padding: 24px;
@@ -36,12 +36,12 @@ export const Character = styled.div`
 
     strong {
       font-size: 20px;
-      color: #3d3d4d;
+      color: ${({ theme }) => theme.colors.gray[700]};
     }
 
     p {
       font-size: 18px;
-      color: #a8a8b3;
+      color: ${({ theme }) => theme.colors.gray[200]};
       margin-top: 4px;
     }
   }
@@ -55,7 +55,7 @@ export const Character = styled.div`
     width: 48px;
     height: 48px;
     border: none;
-    background: #f00;
+    background: ${({ theme }) => theme.colors.danger.dark};
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
 
     &:hover {

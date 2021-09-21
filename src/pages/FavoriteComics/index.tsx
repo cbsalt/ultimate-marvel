@@ -68,7 +68,7 @@ const FavoriteComics: React.FC = () => {
                   type="button"
                   onClick={() => handleRemoveFavoriteComic(comic.uuid)}
                 >
-                  <FaTrash size={28} color="#ffffff" />
+                  <FaTrash size={28} color="#fff" />
                 </button>
               </>
             </Comic>

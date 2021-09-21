@@ -19,7 +19,7 @@ export const Container = styled.div`
     position: absolute;
     width: 30px;
     height: 30px;
-    border: 5px solid #f00;
+    border: 5px solid ${({ theme }) => theme.colors.danger.dark};
     border-top-color: transparent;
     border-radius: 50%;
   }

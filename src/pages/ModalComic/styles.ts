@@ -9,7 +9,7 @@ export const Header = styled.header`
   display: flex;
 
   h2 {
-    color: #f00;
+    color: ${({ theme }) => theme.colors.danger.dark};
   }
 
   svg {
@@ -62,7 +62,7 @@ export const AboutComic = styled.section`
     strong {
       display: block;
       font-size: 32px;
-      color: #3d3d4d;
+      color: ${({ theme }) => theme.colors.gray[700]};
     }
 
     span {
@@ -91,7 +91,7 @@ export const AboutComic = styled.section`
     width: 48px;
     height: 48px;
     border: none;
-    background: #f00;
+    background: ${({ theme }) => theme.colors.danger.dark};
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
 
     &:hover {

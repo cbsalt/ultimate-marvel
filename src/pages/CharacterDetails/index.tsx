@@ -50,7 +50,7 @@ interface CharacterDataProps {
 const CharacterDetails: React.FC = () => {
   const { params } = useRouteMatch<RouteParams>();
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [, setError] = useState(false);
 
   const [character, setCharacter] = useState<CharacterDataProps[]>([]);
@@ -178,7 +178,7 @@ const CharacterDetails: React.FC = () => {
                       type="button"
                       onClick={() => handleSaveFavorite(item)}
                     >
-                      <MdFavorite size={28} color="#ffffff" />
+                      <MdFavorite size={28} color="#fff" />
                     </button>
                   </Tooltip>
                 </div>

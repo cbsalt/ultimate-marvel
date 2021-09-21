@@ -9,7 +9,7 @@ export const Header = styled.header`
   a {
     display: flex;
     align-items: center;
-    color: #a8a8b3;
+    color: ${({ theme }) => theme.colors.gray[200]};
     transition: color 0.2s;
 
     &:hover {

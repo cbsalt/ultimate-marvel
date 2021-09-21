@@ -8,6 +8,6 @@ export const Container = styled.div`
   align-items: center;
   padding: 0px 16px;
   justify-content: space-between;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.colors.primary.lighter};
   box-shadow: #000 0px 0px 20px -12px;
 `;

@@ -11,7 +11,7 @@ export const Container = styled.nav<NavMenuProps>`
   left: 0;
   width: 100%;
   max-width: 280px;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.colors.primary.lighter};
   transform: ${({ open }) => (open ? 'translateX(0%)' : 'translateX(-100%)')};
   box-shadow: ${({ open }) =>
     open ? '#252424 0px 0px 12px -4px' : '#252424 0px 0px 0px 0px'};
@@ -31,7 +31,7 @@ export const Container = styled.nav<NavMenuProps>`
       padding-left: 0px;
 
       &:hover {
-        border-left: 10px solid #f00;
+        border-left: 10px solid #fff;
         padding-left: 10px;
       }
 
@@ -40,7 +40,7 @@ export const Container = styled.nav<NavMenuProps>`
       }
 
       a {
-        color: #a8a8b3;
+        color: ${({ theme }) => theme.colors.gray[200]};
         display: block;
         font-weight: lighter;
         font-size: 16px;

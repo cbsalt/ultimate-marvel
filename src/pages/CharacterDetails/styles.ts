@@ -7,7 +7,7 @@ export const Container = styled.div`
 
 export const Details = styled.section`
   margin-top: 40px;
-  background: #fff;
+  background: ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 5px;
   width: 100%;
   padding: 24px;
@@ -27,13 +27,13 @@ export const Details = styled.section`
       strong {
         display: block;
         font-size: 36px;
-        color: #3d3d4d;
+        color: ${({ theme }) => theme.colors.gray[900]};
       }
 
       span {
         display: block;
         margin-top: 4px;
-        color: #6c6c80;
+        color: ${({ theme }) => theme.colors.gray[300]};
       }
     }
   }
@@ -67,7 +67,7 @@ export const Character = styled.section`
 
       strong {
         font-size: 36px;
-        color: #3d3d4d;
+        color: ${({ theme }) => theme.colors.gray[700]};
         margin: 0px 24px;
 
         @media (max-width: 640px) {
@@ -84,7 +84,7 @@ export const Character = styled.section`
         width: 48px;
         height: 48px;
         border: none;
-        background: #f00;
+        background: ${({ theme }) => theme.colors.danger.dark};
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
 
         &:hover {
@@ -121,12 +121,12 @@ export const ComicsList = styled.div`
 
   strong {
     font-size: 24px;
-    color: #3d3d4d;
+    color: ${({ theme }) => theme.colors.gray[700]};
   }
 
   li {
     font-size: 18px;
-    color: #a8a8b3;
+    color: ${({ theme }) => theme.colors.gray[200]};
     margin-top: 4px;
     list-style: none;
     cursor: pointer;

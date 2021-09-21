@@ -39,7 +39,7 @@ const ModalComic: React.FC<ComponentProps> = ({
   handleCloseModal,
 }: ComponentProps) => {
   const [comic, setComic] = useState<ComicDataProps[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [, setError] = useState(false);
   const [comicsList, setComicsList] = useState<ComicDataProps[]>(() => {
     const storagedCharacters = localStorage.getItem('@Marvel:comics');
@@ -128,7 +128,7 @@ const ModalComic: React.FC<ComponentProps> = ({
                         type="button"
                         onClick={() => handleSaveFavoriteComic(item)}
                       >
-                        <MdFavorite size={28} color="#ffffff" />
+                        <MdFavorite size={28} color="#fff" />
                       </button>
                     </Tooltip>
                   </div>

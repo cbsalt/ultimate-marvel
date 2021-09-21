@@ -15,11 +15,11 @@ export const Container = styled.div`
     margin: 0 16px;
 
     &:hover {
-      color: ${shade(0.2, '#f00')};
+      color: ${shade(0.2, '#fff')};
     }
 
     &.selected {
-      color: #f00;
+      color: #fff;
       font-weight: 700;
     }
 

@@ -16,7 +16,7 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
   font-size: 48px;
-  color: #3a3a3a;
+  color: ${({ theme }) => theme.colors.gray[900]};
   max-width: 450px;
   line-height: 56px;
   margin-top: 32px;
@@ -34,8 +34,8 @@ export const Form = styled.form<FormProps>`
     padding: 0 24px;
     border: 0;
     border-radius: 5px 0 0 5px;
-    color: #3a3a3a;
-    border: 2px solid #fff;
+    color: ${({ theme }) => theme.colors.gray[900]};
+    border: 2px solid ${({ theme }) => theme.colors.primary.lighter};
     border-right: 0;
 
     @media (max-width: 640px) {
@@ -45,21 +45,21 @@ export const Form = styled.form<FormProps>`
     ${(props) =>
       props.hasError &&
       css`
-        border-color: #c53030;
+        border-color: ${({ theme }) => theme.colors.danger.light};
       `}
 
     &::placeholder {
-      color: #a8a8b3;
+      color: ${({ theme }) => theme.colors.gray[200]};
     }
   }
 
   button {
     width: 210px;
     height: 70px;
-    background: #f00;
+    background: ${({ theme }) => theme.colors.danger.dark};
     border-radius: 0 5px 5px 0;
     border: 0;
-    color: #fff;
+    color: ${({ theme }) => theme.colors.primary.lighter};
     font-size: 24px;
     font-weight: bold;
     transition: background-color 0.2s;
@@ -69,14 +69,14 @@ export const Form = styled.form<FormProps>`
     }
 
     &:hover {
-      background: ${shade(0.2, '#f00')};
+      background: ${shade(0.2, '#f63131')};
     }
   }
 `;
 
 export const Error = styled.span`
   display: block;
-  color: #c53030;
+  color: ${({ theme }) => theme.colors.danger.light};
   margin-top: 8px;
 `;
 
@@ -85,7 +85,7 @@ export const Character = styled.div`
   max-width: 700px;
 
   .hero-card {
-    background: #fff;
+    background: ${({ theme }) => theme.colors.primary.lighter};
     border-radius: 5px;
     width: 100%;
     padding: 24px;
@@ -113,19 +113,19 @@ export const Character = styled.div`
 
       strong {
         font-size: 20px;
-        color: #3d3d4d;
+        color: ${({ theme }) => theme.colors.gray[700]};
       }
 
       p {
         font-size: 18px;
-        color: #a8a8b3;
+        color: ${({ theme }) => theme.colors.gray[200]};
         margin-top: 4px;
       }
     }
 
     svg {
       margin-left: auto;
-      color: #cbcbd6;
+      color: ${({ theme }) => theme.colors.gray[100]};
     }
   }
 `;

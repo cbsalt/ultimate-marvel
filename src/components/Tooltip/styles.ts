@@ -9,7 +9,7 @@ export const Container = styled.span`
       visibility: hidden;
       width: 120px;
       background-color: rgba(61, 61, 77, 0.7);
-      color: #fff;
+      color: ${({ theme }) => theme.colors.primary.lighter};
       text-align: center;
       border-radius: 6px;
       padding: 5px 0;

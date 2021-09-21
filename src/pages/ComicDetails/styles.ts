@@ -7,7 +7,7 @@ export const Container = styled.div`
 
 export const Details = styled.section`
   margin-top: 40px;
-  background: #fff;
+  background: ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 5px;
   width: 100%;
   padding: 24px;
@@ -28,7 +28,7 @@ export const Details = styled.section`
       strong {
         display: block;
         font-size: 36px;
-        color: #3d3d4d;
+        color: ${({ theme }) => theme.colors.gray[700]};
       }
 
       span {
@@ -59,7 +59,7 @@ export const Comic = styled.section`
 
       strong {
         font-size: 36px;
-        color: #3d3d4d;
+        color: ${({ theme }) => theme.colors.gray[700]};
         margin: 0px 24px;
       }
 
@@ -72,7 +72,7 @@ export const Comic = styled.section`
         width: 48px;
         height: 48px;
         border: none;
-        background: #f00;
+        background: ${({ theme }) => theme.colors.danger.dark};
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
 
         &:hover {
