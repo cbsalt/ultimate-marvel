@@ -6,9 +6,9 @@ import { toast } from 'react-toastify';
 import { Container, Title, Form, Error, Character } from './styles';
 
 import logoImg from '../../assets/marvel-logo.svg';
-import api from '../../services/api';
 import Loader from '../../components/Loader';
 import { truncateText } from '../../utils/truncateText';
+import CharactersService from '../../services/CharactersService';
 
 interface ComicsProps {
   name: string;
@@ -31,10 +31,6 @@ interface ResultsProps {
   results: CharactersDataProps[];
 }
 
-interface DataProps {
-  data: ResultsProps;
-}
-
 const Characters: React.FC = () => {
   const [newCharacter, setNewCharacter] = useState('');
   const [inputError, setInputError] = useState('');
@@ -54,13 +50,13 @@ const Characters: React.FC = () => {
     try {
       setLoading(true);
 
-      const fetchCharactersData = await api.get<DataProps>(
-        `characters?nameStartsWith=${newCharacter}&ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
+      const fetchCharactersData = await CharactersService.listCharacters(
+        newCharacter,
       );
 
       const response = fetchCharactersData.data;
 
-      const charactersList = response.data.results.map((item) => item);
+      const charactersList = response.results.map((item: ResultsProps) => item);
 
       if (charactersList.length === 0) {
         setInputError(`looks like this character is busy or doesn't exist! 😥`);

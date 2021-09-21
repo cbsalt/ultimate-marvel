@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { useRouteMatch } from 'react-router-dom';
@@ -13,7 +12,7 @@ import Tooltip from '../../components/Tooltip';
 
 import ModalComic from '../ModalComic';
 
-import api from '../../services/api';
+import CharactersService from '../../services/CharactersService';
 
 import {
   Container,
@@ -49,16 +48,6 @@ interface CharacterDataProps {
   };
 }
 
-interface ResultsProps {
-  results: CharacterDataProps[] | ComicDataProps[];
-  total: number;
-  offset: number;
-}
-
-interface DataProps {
-  data: ResultsProps;
-}
-
 const CharacterDetails: React.FC = () => {
   const { params } = useRouteMatch<RouteParams>();
 
@@ -89,28 +78,23 @@ const CharacterDetails: React.FC = () => {
         setLoading(true);
 
         const [characterItem, comicsList] = await Promise.all([
-          api.get<DataProps>(
-            `characters/${params.character}?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
-          ),
-          api.get<DataProps>(
-            `characters/${params.character}/comics?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
-            {
-              params: {
-                offset: currentPage,
-              },
-            },
-          ),
+          CharactersService.listCharactersDetails(params.character),
+          CharactersService.listComicsByCharacter(params.character, {
+            offset: currentPage,
+          }),
         ]);
 
-        const { data } = characterItem.data;
-        const characterData = data.results.map((item: any) => item);
+        const { data } = characterItem;
+        const characterData = data.results.map(
+          (item: CharacterDataProps) => item,
+        );
 
-        const responseComics = comicsList.data;
+        const responseComics = comicsList;
 
         const current = responseComics.data.offset;
         const total = Math.round(responseComics.data.total / 20);
         const comicsListData = responseComics.data.results.map(
-          (item: any) => item,
+          (item: ComicDataProps) => item,
         );
 
         setTotalPages(total);

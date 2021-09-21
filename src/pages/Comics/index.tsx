@@ -6,9 +6,9 @@ import { toast } from 'react-toastify';
 import { Container, Title, Form, Error, Comic } from './styles';
 
 import logoImg from '../../assets/marvel-logo.svg';
-import api from '../../services/api';
 import Loader from '../../components/Loader';
 import { truncateText } from '../../utils/truncateText';
+import ComicsServices from '../../services/ComicsServices';
 
 interface ComicsDataProps {
   id: number;
@@ -22,10 +22,6 @@ interface ComicsDataProps {
 
 interface ResultsProps {
   results: ComicsDataProps[];
-}
-
-interface DataProps {
-  data: ResultsProps;
 }
 
 const Comics: React.FC = () => {
@@ -47,13 +43,11 @@ const Comics: React.FC = () => {
     try {
       setLoading(true);
 
-      const fetchComicsData = await api.get<DataProps>(
-        `comics?titleStartsWith=${newComic}&ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
-      );
+      const fetchComicsData = await ComicsServices.listComics(newComic);
 
       const response = fetchComicsData.data;
 
-      const listComics = response.data.results.map((item) => item);
+      const listComics = response.results.map((item: ResultsProps) => item);
 
       if (listComics.length === 0) {
         setInputError(`looks like this comic doesn't exist! 😥`);

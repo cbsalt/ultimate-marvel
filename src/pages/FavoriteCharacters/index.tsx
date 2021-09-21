@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 import Title from '../../components/Title';
 
-import { Container, Character } from './styles';
+import { Container, Wrapper, Character } from './styles';
 
 interface CharactersDataProps {
   uuid: string;
@@ -49,27 +49,35 @@ const FavoriteCharacters: React.FC = () => {
   return (
     <Container>
       <Title to="" title="_favorite characters" />
-      {charactersList.map((character) => (
-        <Character key={character.uuid}>
-          <>
-            <img
-              src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-              alt={character.name}
-            />
-            <div>
-              <Link to={`/character/${character.id}`}>
-                <strong>{character.name}</strong>
-              </Link>
-            </div>
-            <button
-              type="button"
-              onClick={() => handleRemoveFavoriteCharacter(character.uuid)}
-            >
-              <FaTrash size={28} color="#ffffff" />
-            </button>
-          </>
-        </Character>
-      ))}
+      {charactersList.length < 1 ? (
+        <Wrapper>
+          <b>💭_nothing here yet...</b>
+        </Wrapper>
+      ) : (
+        <>
+          {charactersList.map((character) => (
+            <Character key={character.uuid}>
+              <>
+                <img
+                  src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                  alt={character.name}
+                />
+                <div>
+                  <Link to={`/character/${character.id}`}>
+                    <strong>{character.name}</strong>
+                  </Link>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveFavoriteCharacter(character.uuid)}
+                >
+                  <FaTrash size={28} color="#ffffff" />
+                </button>
+              </>
+            </Character>
+          ))}
+        </>
+      )}
     </Container>
   );
 };

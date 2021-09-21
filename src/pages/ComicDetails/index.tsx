@@ -8,7 +8,7 @@ import Loader from '../../components/Loader';
 import Title from '../../components/Title';
 import Tooltip from '../../components/Tooltip';
 
-import api from '../../services/api';
+import ComicsServices from '../../services/ComicsServices';
 import { truncateText } from '../../utils/truncateText';
 
 import { Container, Comic, Details } from './styles';
@@ -17,7 +17,7 @@ interface RouteParams {
   comic: string;
 }
 
-interface AvailableCharacters {
+interface AvailableCharactersProps {
   name: string;
 }
 
@@ -30,7 +30,7 @@ interface ComicDataProps {
   };
   characters: {
     available: number;
-    items: AvailableCharacters[];
+    items: AvailableCharactersProps[];
   };
   title: string;
   thumbnail: {
@@ -41,10 +41,6 @@ interface ComicDataProps {
 
 interface ResultsProps {
   results: ComicDataProps[];
-}
-
-interface DataProps {
-  data: ResultsProps;
 }
 
 export const ComicDetails: React.FC = () => {
@@ -68,12 +64,12 @@ export const ComicDetails: React.FC = () => {
       try {
         setLoading(true);
 
-        const response = await api.get<DataProps>(
-          `comics/${params.comic}?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
-        );
+        const response = await ComicsServices.listComicDetails(params?.comic);
 
         const responseComics = response.data;
-        const comicsData = responseComics.data.results.map((item) => item);
+        const comicsData = responseComics.results.map(
+          (item: ResultsProps) => item,
+        );
 
         setComic(comicsData);
       } catch (err) {
