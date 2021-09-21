@@ -9,19 +9,6 @@ export const Container = styled.div`
   }
 `;
 
-export const Wrapper = styled.div`
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  height: 400px;
-
-  b {
-    color: #f00;
-    font-size: 48px;
-  }
-`;
-
 export const Character = styled.div`
   margin-top: 80px;
   max-width: 700px;

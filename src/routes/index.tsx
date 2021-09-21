@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import Characters from '../pages/Characters';
-import Comics from '../pages/Comics';
+import CharactersFinder from '../pages/CharactersFinder';
+import ComicsFinder from '../pages/ComicsFinder';
 import ComicDetails from '../pages/ComicDetails';
 import CharacterDetails from '../pages/CharacterDetails';
 import FavoriteCharacters from '../pages/FavoriteCharacters';
@@ -33,8 +33,8 @@ const Routes: React.FC = () => {
       </MenuContext.Provider>
 
       <Switch>
-        <Route path="/" component={Characters} exact />
-        <Route path="/comics" component={Comics} />
+        <Route path="/" component={CharactersFinder} exact />
+        <Route path="/comics" component={ComicsFinder} />
         <Route path="/comic/:comic+" component={ComicDetails} />
         <Route path="/character/:character+" component={CharacterDetails} />
         <Route path="/favorites/characters" component={FavoriteCharacters} />

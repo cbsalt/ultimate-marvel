@@ -2,10 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import NoContent from '../../components/NoContent';
 
 import Title from '../../components/Title';
 
-import { Container, Wrapper, Character } from './styles';
+import { Container, Character } from './styles';
 
 interface CharactersDataProps {
   uuid: string;
@@ -50,9 +51,7 @@ const FavoriteCharacters: React.FC = () => {
     <Container>
       <Title to="" title="_favorite characters" />
       {charactersList.length < 1 ? (
-        <Wrapper>
-          <b>💭_nothing here yet...</b>
-        </Wrapper>
+        <NoContent content="character" />
       ) : (
         <>
           {charactersList.map((character) => (

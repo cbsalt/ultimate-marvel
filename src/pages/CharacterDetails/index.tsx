@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-
 import { useRouteMatch } from 'react-router-dom';
 import { MdFavorite } from 'react-icons/md';
 import { toast } from 'react-toastify';
@@ -10,9 +9,9 @@ import Modal from '../../components/Modal';
 import Title from '../../components/Title';
 import Tooltip from '../../components/Tooltip';
 
-import ModalComic from '../ModalComic';
-
 import CharactersService from '../../services/CharactersService';
+
+import ModalComic from '../ModalComic';
 
 import {
   Container,

@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
-import { Container, Title, Form, Error, Character } from './styles';
-
-import logoImg from '../../assets/marvel-logo.svg';
 import Loader from '../../components/Loader';
+
 import { truncateText } from '../../utils/truncateText';
 import CharactersService from '../../services/CharactersService';
+
+import logoImg from '../../assets/marvel-logo.svg';
+
+import { Container, Title, Form, Error, Character } from './styles';
 
 interface ComicsProps {
   name: string;
@@ -31,7 +33,7 @@ interface ResultsProps {
   results: CharactersDataProps[];
 }
 
-const Characters: React.FC = () => {
+const CharactersFinder: React.FC = () => {
   const [newCharacter, setNewCharacter] = useState('');
   const [inputError, setInputError] = useState('');
   const [characters, setCharacters] = useState<CharactersDataProps[]>([]);
@@ -122,4 +124,4 @@ const Characters: React.FC = () => {
   );
 };
 
-export default Characters;
+export default CharactersFinder;

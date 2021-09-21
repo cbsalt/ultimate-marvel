@@ -7,7 +7,7 @@ import Image from '../../components/Image';
 import Loader from '../../components/Loader';
 import Tooltip from '../../components/Tooltip';
 
-import api from '../../services/api';
+import ComicsServices from '../../services/ComicsServices';
 
 import { Wrapper, Header, AboutComic } from './styles';
 
@@ -34,10 +34,6 @@ interface ResultsProps {
   results: ComicDataProps[];
 }
 
-interface DataProps {
-  data: ResultsProps;
-}
-
 const ModalComic: React.FC<ComponentProps> = ({
   id,
   handleCloseModal,
@@ -58,12 +54,15 @@ const ModalComic: React.FC<ComponentProps> = ({
     async function getComics(): Promise<void> {
       try {
         setLoading(true);
-        const fetchComicsData = await api.get<DataProps>(
-          `comics/${id}?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
+
+        const fetchComicsListData = await ComicsServices.listComicDetails(
+          String(id),
         );
 
-        const response = fetchComicsData.data;
-        const comicData = response.data.results.map((item) => item);
+        const response = fetchComicsListData;
+        const comicData = response.data.results.map(
+          (item: ResultsProps) => item,
+        );
 
         setComic(comicData);
       } catch (err) {

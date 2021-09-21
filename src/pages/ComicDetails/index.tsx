@@ -17,7 +17,7 @@ interface RouteParams {
   comic: string;
 }
 
-interface AvailableCharactersProps {
+interface AvailableCharacters {
   name: string;
 }
 
@@ -30,7 +30,7 @@ interface ComicDataProps {
   };
   characters: {
     available: number;
-    items: AvailableCharactersProps[];
+    items: AvailableCharacters[];
   };
   title: string;
   thumbnail: {
@@ -149,7 +149,7 @@ export const ComicDetails: React.FC = () => {
                     {item.characters.available > 0 ? (
                       <>
                         {item.characters.items.map((character) => (
-                          <strong>{character.name}</strong>
+                          <strong key={character.name}>{character.name}</strong>
                         ))}
                         <span>_characters</span>
                       </>

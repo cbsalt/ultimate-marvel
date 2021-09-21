@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import Title from '../../components/Title';
+import NoContent from '../../components/NoContent';
 
 import { Container, Comic } from './styles';
 
@@ -47,27 +48,33 @@ const FavoriteComics: React.FC = () => {
   return (
     <Container>
       <Title to="comics" title="_favorite comics" />
-      {comicsList.map((comic) => (
-        <Comic key={comic.uuid}>
-          <>
-            <img
-              src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-              alt={comic.title}
-            />
-            <div>
-              <Link to={`/comic/${comic.id}`}>
-                <strong>{comic.title}</strong>
-              </Link>
-            </div>
-            <button
-              type="button"
-              onClick={() => handleRemoveFavoriteComic(comic.uuid)}
-            >
-              <FaTrash size={28} color="#ffffff" />
-            </button>
-          </>
-        </Comic>
-      ))}
+      {comicsList.length < 1 ? (
+        <NoContent content="comic" />
+      ) : (
+        <>
+          {comicsList.map((comic) => (
+            <Comic key={comic.uuid}>
+              <>
+                <img
+                  src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                  alt={comic.title}
+                />
+                <div>
+                  <Link to={`/comic/${comic.id}`}>
+                    <strong>{comic.title}</strong>
+                  </Link>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveFavoriteComic(comic.uuid)}
+                >
+                  <FaTrash size={28} color="#ffffff" />
+                </button>
+              </>
+            </Comic>
+          ))}
+        </>
+      )}
     </Container>
   );
 };
