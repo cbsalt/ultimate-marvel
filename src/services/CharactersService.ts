@@ -4,6 +4,12 @@ export interface Params {
   offset: number;
 }
 
+const {
+  REACT_APP_MARVEL_PRIVATE_KEY,
+  REACT_APP_MARVEL_HASH_KEY,
+  REACT_APP_MARVEL_TIMESTAMP,
+} = process.env;
+
 class CharactersService {
   public httpClient;
 
@@ -13,19 +19,19 @@ class CharactersService {
 
   async listCharacters(id: string) {
     return this.httpClient.get(
-      `/characters?nameStartsWith=${id}&ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
+      `/characters?nameStartsWith=${id}&ts=${REACT_APP_MARVEL_TIMESTAMP}&apikey=${REACT_APP_MARVEL_PRIVATE_KEY}&hash=${REACT_APP_MARVEL_HASH_KEY}`,
     );
   }
 
   async listCharactersDetails(id: string) {
     return this.httpClient.get(
-      `/characters/${id}?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
+      `/characters/${id}?ts=${REACT_APP_MARVEL_TIMESTAMP}&apikey=${REACT_APP_MARVEL_PRIVATE_KEY}&hash=${REACT_APP_MARVEL_HASH_KEY}`,
     );
   }
 
   async listComicsByCharacter(id: string, params: Params) {
     return this.httpClient.get(
-      `/characters/${id}/comics?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
+      `/characters/${id}/comics?ts=${REACT_APP_MARVEL_TIMESTAMP}&apikey=${REACT_APP_MARVEL_PRIVATE_KEY}&hash=${REACT_APP_MARVEL_HASH_KEY}`,
       params,
     );
   }

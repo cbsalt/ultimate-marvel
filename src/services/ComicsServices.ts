@@ -1,5 +1,11 @@
 import HttpClient from './utils/HttpClient';
 
+const {
+  REACT_APP_MARVEL_PRIVATE_KEY,
+  REACT_APP_MARVEL_HASH_KEY,
+  REACT_APP_MARVEL_TIMESTAMP,
+} = process.env;
+
 class ComicsService {
   public httpClient;
 
@@ -9,13 +15,13 @@ class ComicsService {
 
   async listComics(id: string) {
     return this.httpClient.get(
-      `/comics?titleStartsWith=${id}&ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
+      `/comics?titleStartsWith=${id}&ts=${REACT_APP_MARVEL_TIMESTAMP}&apikey=${REACT_APP_MARVEL_PRIVATE_KEY}&hash=${REACT_APP_MARVEL_HASH_KEY}`,
     );
   }
 
   async listComicDetails(id: string) {
     return this.httpClient.get(
-      `/comics/${id}?ts=1622739038550&apikey=13b6b018c030bf1a6222a749e184c2ad&hash=f159cb16060d247633208bcce94dd878`,
+      `/comics/${id}?ts=${REACT_APP_MARVEL_TIMESTAMP}&apikey=${REACT_APP_MARVEL_PRIVATE_KEY}&hash=${REACT_APP_MARVEL_HASH_KEY}`,
     );
   }
 }
