@@ -23,6 +23,20 @@ git clone https://github.com/cbsalt/ultimate-marvel.git
 ```
 Go into the repository
 
+Environment variables
+Create a file .env using .env.example and add your marvel apikeys. To undertand how to, access https://developer.marvel.com/documentation/getting_started
+Server-side applications must pass two parameters in addition to the apikey parameter:
+
+REACT_APP_MARVEL_PRIVATE_KEY - your private key
+REACT_APP_MARVEL_TIMESTAMP - a timestamp (ts)
+REACT_APP_MARVEL_HASH_KEY - a md5 digest of the ts parameter, your private key and your public key (e.g. md5(ts+privateKey+publicKey)
+
+For example, a user with a public key of "1234" and a private key of "abcd" could construct a valid call as follows:
+
+http://gateway.marvel.com/v1/public/comics?ts=1&apikey=1234&hash=ffd275c5130566a2916217b101f26150
+```
+
+```
 Install dependencies
 yarn install
 
@@ -38,7 +52,6 @@ _This project was developed with the following technologies:_
 * [TypeScript](https://www.typescriptlang.org/)
 * [Yarn](https://yarnpkg.com/)
 * [React Router DOM](https://reactrouter.com/web/guides/quick-start)
-* [Axios](https://github.com/axios/axios)
 * [Styled-Components](https://styled-components.com/)
 * [MARVEL API](https://developer.marvel.com/documentation/getting_started)
 * [EditorConfig](https://editorconfig.org/) and [ESLint](https://eslint.org/)/[Prettier](https://prettier.io/)
