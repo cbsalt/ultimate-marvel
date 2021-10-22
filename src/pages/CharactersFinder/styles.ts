@@ -5,15 +5,6 @@ interface FormProps {
   hasError?: boolean;
 }
 
-export const Container = styled.div`
-  max-width: 960px;
-  margin: 48px auto;
-
-  @media (max-width: 640px) {
-    padding: 0 24px;
-  }
-`;
-
 export const Title = styled.h1`
   font-size: 48px;
   color: ${({ theme }) => theme.colors.gray[900]};

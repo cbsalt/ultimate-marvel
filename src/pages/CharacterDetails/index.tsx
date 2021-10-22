@@ -4,23 +4,19 @@ import { MdFavorite } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 
+import PageContainer from '../../components/PageContainer';
+import HeaderDetailsContainer from '../../components/HeaderDetailsContainer';
+import DetailsContainer from '../../components/DetailsContainer';
 import Loader from '../../components/Loader';
-import Modal from '../../components/Modal';
 import Title from '../../components/Title';
 import Tooltip from '../../components/Tooltip';
+import Modal from '../../components/Modal';
 
 import CharactersService from '../../services/CharactersService';
 
 import ModalComic from '../ModalComic';
 
-import {
-  Container,
-  CharacterDescription,
-  DetailsContainer,
-  ComicsList,
-  TotalPages,
-  Pagination,
-} from './styles';
+import { ComicsList, TotalPages, Pagination } from './styles';
 
 interface RouteParams {
   character: string;
@@ -158,13 +154,13 @@ const CharacterDetails: React.FC = () => {
   };
 
   return (
-    <Container>
+    <PageContainer>
       <Title to="" title="_character details" />
       {loading && character.length === 0 ? (
         <Loader />
       ) : (
         <>
-          <CharacterDescription>
+          <HeaderDetailsContainer>
             {character.map((item) => (
               <header key={item.id}>
                 <img
@@ -184,7 +180,7 @@ const CharacterDetails: React.FC = () => {
                 </div>
               </header>
             ))}
-          </CharacterDescription>
+          </HeaderDetailsContainer>
           <DetailsContainer>
             {character.map((item) => (
               <React.Fragment key={item.description}>
@@ -288,7 +284,7 @@ const CharacterDetails: React.FC = () => {
       >
         <ModalComic id={selectedComic} handleCloseModal={handleCloseModal} />
       </Modal>
-    </Container>
+    </PageContainer>
   );
 };
 

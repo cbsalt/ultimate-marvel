@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  max-width: 960px;
-  margin: 48px auto;
-`;
-
-export const ComicHeader = styled.section`
+export default styled.section`
   margin-top: 40px;
 
   header {
     display: flex;
     align-items: center;
+
+    @media (max-width: 640px) {
+      flex-direction: column;
+    }
 
     img {
       width: 120px;
@@ -22,10 +21,19 @@ export const ComicHeader = styled.section`
       display: flex;
       align-items: center;
 
+      @media (max-width: 640px) {
+        flex-direction: column;
+        text-align: center;
+      }
+
       strong {
         font-size: 36px;
         color: ${({ theme }) => theme.colors.gray[700]};
         margin: 0px 24px;
+
+        @media (max-width: 640px) {
+          margin: 8px 0;
+        }
       }
 
       button {
@@ -44,41 +52,6 @@ export const ComicHeader = styled.section`
           transform: scale(1.04);
           transition: 0.2s;
         }
-      }
-    }
-  }
-`;
-
-export const DetailsContainer = styled.section`
-  margin-top: 40px;
-  background: ${({ theme }) => theme.colors.primary.lighter};
-  border-radius: 5px;
-  width: 100%;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-
-  ul {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    margin-top: 40px;
-
-    li {
-      & + li {
-        margin-top: 40px;
-      }
-
-      strong {
-        display: block;
-        font-size: 36px;
-        color: ${({ theme }) => theme.colors.gray[700]};
-      }
-
-      span {
-        display: block;
-        margin-top: 4px;
-        color: ${({ theme }) => theme.colors.gray[300]};
       }
     }
   }
