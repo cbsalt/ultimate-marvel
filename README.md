@@ -24,7 +24,7 @@ git clone https://github.com/cbsalt/ultimate-marvel.git
 Go into the repository
 
 Environment variables
-Create a file .env using .env.example and add your marvel apikeys. To undertand how to, access https://developer.marvel.com/documentation/getting_started
+Create a file .env using .env.example and add your marvel apikeys. To understand how to, access https://developer.marvel.com/documentation/getting_started
 Server-side applications must pass two parameters in addition to the apikey parameter:
 
 REACT_APP_MARVEL_PRIVATE_KEY - your private key
