@@ -4,14 +4,15 @@ import { useRouteMatch } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 
-import Loader from '../../components/Loader';
 import Title from '../../components/Title';
+import Loader from '../../components/Loader';
+import HeaderDetailsContainer from '../../components/HeaderDetailsContainer';
+import DetailsContainer from '../../components/DetailsContainer';
+import PageContainer from '../../components/PageContainer';
 import Tooltip from '../../components/Tooltip';
 
 import ComicsServices from '../../services/ComicsServices';
 import { truncateText } from '../../utils/truncateText';
-
-import { Container, ComicHeader, DetailsContainer } from './styles';
 
 interface RouteParams {
   comic: string;
@@ -98,19 +99,16 @@ export const ComicDetails: React.FC = () => {
   }, []);
 
   return (
-    <Container>
+    <PageContainer>
       <Title to="comics" title="comic details" />
       {loading ? (
         <Loader />
       ) : (
         <>
-          <ComicHeader>
+          <HeaderDetailsContainer>
             {comic.map((item) => (
-              <header key={item.id}>
-                <img
-                  src={`${item.thumbnail.path}.${item.thumbnail.extension}`}
-                  alt={item.title}
-                />
+              <header>
+                <img src={item.thumbnail.path} alt={item.title} />
                 <div>
                   <strong>{item.title}</strong>
                   <Tooltip text="add to favorites">
@@ -124,7 +122,7 @@ export const ComicDetails: React.FC = () => {
                 </div>
               </header>
             ))}
-          </ComicHeader>
+          </HeaderDetailsContainer>
           <DetailsContainer>
             {comic.map((item) => (
               <React.Fragment key={item.description}>
@@ -166,7 +164,7 @@ export const ComicDetails: React.FC = () => {
           </DetailsContainer>
         </>
       )}
-    </Container>
+    </PageContainer>
   );
 };
 
