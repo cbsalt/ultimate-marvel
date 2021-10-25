@@ -4,7 +4,6 @@ import { FiChevronRight } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
 import Loader from '../../components/Loader';
-import PageContainer from '../../components/PageContainer';
 
 import { truncateText } from '../../utils/truncateText';
 import ComicsServices from '../../services/ComicsServices';
@@ -73,7 +72,7 @@ const ComicsFinder: React.FC = () => {
   }
 
   return (
-    <PageContainer>
+    <>
       <img src={logoImg} alt="Marvel Logo" />
       <Title>Comics finder</Title>
       <Form hasError={!!inputError} onSubmit={handleSearchComic}>
@@ -112,7 +111,7 @@ const ComicsFinder: React.FC = () => {
           ))}
         </Comic>
       )}
-    </PageContainer>
+    </>
   );
 };
 

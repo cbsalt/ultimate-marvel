@@ -4,7 +4,6 @@ import { MdFavorite } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 
-import PageContainer from '../../components/PageContainer';
 import HeaderDetailsContainer from '../../components/HeaderDetailsContainer';
 import DetailsContainer from '../../components/DetailsContainer';
 import Loader from '../../components/Loader';
@@ -154,7 +153,7 @@ const CharacterDetails: React.FC = () => {
   };
 
   return (
-    <PageContainer>
+    <>
       <Title to="" title="_character details" />
       {loading && character.length === 0 ? (
         <Loader />
@@ -284,7 +283,7 @@ const CharacterDetails: React.FC = () => {
       >
         <ModalComic id={selectedComic} handleCloseModal={handleCloseModal} />
       </Modal>
-    </PageContainer>
+    </>
   );
 };
 
