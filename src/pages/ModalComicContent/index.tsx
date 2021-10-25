@@ -34,7 +34,7 @@ interface ResultsProps {
   results: ComicDataProps[];
 }
 
-const ModalComic: React.FC<ComponentProps> = ({
+const ModalComicContent: React.FC<ComponentProps> = ({
   id,
   handleCloseModal,
 }: ComponentProps) => {
@@ -142,4 +142,4 @@ const ModalComic: React.FC<ComponentProps> = ({
   );
 };
 
-export default ModalComic;
+export default ModalComicContent;
