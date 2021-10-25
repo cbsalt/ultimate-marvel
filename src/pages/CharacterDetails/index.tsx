@@ -12,11 +12,11 @@ import Tooltip from '../../components/Tooltip';
 import Modal from '../../components/Modal';
 
 import CharactersService from '../../services/CharactersService';
+import useMedia from '../../hooks/useMedia';
 
-import ModalComicContent from '../ModalComicContent';
+import ModalComicContent from './components/ModalComicContent';
 
 import { ComicsList, TotalPages, Pagination } from './styles';
-import useMedia from '../../hooks/useMedia';
 
 interface RouteParams {
   character: string;

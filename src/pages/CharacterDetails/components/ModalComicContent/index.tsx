@@ -3,11 +3,11 @@ import { MdClose, MdFavorite } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 
-import Image from '../../components/Image';
-import Loader from '../../components/Loader';
-import Tooltip from '../../components/Tooltip';
+import Image from '../../../../components/Image';
+import Loader from '../../../../components/Loader';
+import Tooltip from '../../../../components/Tooltip';
 
-import ComicsServices from '../../services/ComicsServices';
+import ComicsServices from '../../../../services/ComicsServices';
 
 import { Wrapper, Header, AboutComic } from './styles';
 

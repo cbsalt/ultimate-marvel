@@ -106,7 +106,7 @@ export const ComicDetails: React.FC = () => {
         <>
           <HeaderDetailsContainer>
             {comic.map((item) => (
-              <header>
+              <header key={item.id}>
                 <img src={item.thumbnail.path} alt={item.title} />
                 <div>
                   <strong>{item.title}</strong>

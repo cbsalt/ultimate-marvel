@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  padding: 24px;
+  padding: 8px;
+
+  @media (max-width: 640px) {
+    padding: 0;
+  }
 `;
 
 export const Header = styled.header`
@@ -24,10 +28,6 @@ export const AboutComic = styled.section`
   flex-direction: row;
   margin-top: 24px;
   max-height: 400px;
-
-  @media (max-width: 640px) {
-    flex-direction: column;
-  }
 
   img {
     max-height: 380px;
@@ -78,7 +78,7 @@ export const AboutComic = styled.section`
     justify-content: center;
 
     @media (max-width: 640px) {
-      justify-content: left;
+      justify-content: center;
     }
   }
 
