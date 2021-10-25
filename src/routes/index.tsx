@@ -6,7 +6,6 @@ import ComicsFinder from '../pages/ComicsFinder';
 import ComicDetails from '../pages/ComicDetails';
 import CharacterDetails from '../pages/CharacterDetails';
 import FavoriteCharacters from '../pages/FavoriteCharacters';
-
 import FavoriteComics from '../pages/FavoriteComics';
 
 const Routes: React.FC = () => {
