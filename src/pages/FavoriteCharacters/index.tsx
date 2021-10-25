@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import NoContent from '../../components/NoContent';
 
 import Title from '../../components/Title';
+import NoContent from '../../components/NoContent';
 
 import { Container, Character } from './styles';
 
