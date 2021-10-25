@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
 import { MenuContext } from '../../context/Menu';
 
 import { Container } from './styles';
