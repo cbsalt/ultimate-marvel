@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+
 import { MenuContext } from '../../context/Menu';
 
 import { StyledBurger } from './styles';

@@ -4,7 +4,6 @@ import { MdFavorite } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 
-import PageContainer from '../../components/PageContainer';
 import HeaderDetailsContainer from '../../components/HeaderDetailsContainer';
 import DetailsContainer from '../../components/DetailsContainer';
 import Loader from '../../components/Loader';
@@ -14,9 +13,10 @@ import Modal from '../../components/Modal';
 
 import CharactersService from '../../services/CharactersService';
 
-import ModalComic from '../ModalComic';
+import ModalComicContent from '../ModalComicContent';
 
 import { ComicsList, TotalPages, Pagination } from './styles';
+import useMedia from '../../hooks/useMedia';
 
 interface RouteParams {
   character: string;
@@ -45,6 +45,7 @@ interface CharacterDataProps {
 
 const CharacterDetails: React.FC = () => {
   const { params } = useRouteMatch<RouteParams>();
+  const mobile = useMedia('(max-width: 768px)');
 
   const [loading, setLoading] = useState(true);
   const [, setError] = useState(false);
@@ -154,7 +155,7 @@ const CharacterDetails: React.FC = () => {
   };
 
   return (
-    <PageContainer>
+    <>
       <Title to="" title="_character details" />
       {loading && character.length === 0 ? (
         <Loader />
@@ -276,15 +277,17 @@ const CharacterDetails: React.FC = () => {
       )}
 
       <Modal
-        width={800}
+        width={mobile ? '100%' : 800}
         height={500}
         isOpen={modalIsOpen}
         handleClose={handleCloseModal}
-        className="Modal"
       >
-        <ModalComic id={selectedComic} handleCloseModal={handleCloseModal} />
+        <ModalComicContent
+          id={selectedComic}
+          handleCloseModal={handleCloseModal}
+        />
       </Modal>
-    </PageContainer>
+    </>
   );
 };
 

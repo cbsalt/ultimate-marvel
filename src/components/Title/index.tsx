@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
@@ -10,6 +9,10 @@ import { Header } from './styles';
 type TitleProps = {
   title: string;
   to?: string;
+} & typeof defaultProps;
+
+const defaultProps = {
+  to: '/',
 };
 
 export const Title: React.FC<TitleProps> = ({ title, to }: TitleProps) => {
@@ -27,3 +30,5 @@ export const Title: React.FC<TitleProps> = ({ title, to }: TitleProps) => {
 };
 
 export default Title;
+
+Title.defaultProps = defaultProps;

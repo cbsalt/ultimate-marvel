@@ -8,7 +8,6 @@ import Title from '../../components/Title';
 import Loader from '../../components/Loader';
 import HeaderDetailsContainer from '../../components/HeaderDetailsContainer';
 import DetailsContainer from '../../components/DetailsContainer';
-import PageContainer from '../../components/PageContainer';
 import Tooltip from '../../components/Tooltip';
 
 import ComicsServices from '../../services/ComicsServices';
@@ -99,7 +98,7 @@ export const ComicDetails: React.FC = () => {
   }, []);
 
   return (
-    <PageContainer>
+    <>
       <Title to="comics" title="comic details" />
       {loading ? (
         <Loader />
@@ -164,7 +163,7 @@ export const ComicDetails: React.FC = () => {
           </DetailsContainer>
         </>
       )}
-    </PageContainer>
+    </>
   );
 };
 
