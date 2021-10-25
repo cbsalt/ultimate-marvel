@@ -4,7 +4,7 @@ export const Container = styled.div`
   max-width: 960px;
   margin: 48px auto;
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     padding: 0 24px;
   }
 `;

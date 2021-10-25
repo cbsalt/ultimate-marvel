@@ -3,15 +3,15 @@ import { ThemeProvider } from 'styled-components';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+import Routes from '../../routes';
+import { MenuContext } from '../../context/Menu';
 import defaultTheme from '../../assets/styles/themes/default';
 import GlobalStyles from '../../styles/global';
 
-import Routes from '../../routes';
-
-import { Container } from './styles';
-import { MenuContext } from '../../context/Menu';
 import NavMenu from '../NavMenu';
 import Header from '../Header';
+
+import { Container } from './styles';
 
 const App: React.FC = () => {
   const [open, setOpen] = useState(false);
