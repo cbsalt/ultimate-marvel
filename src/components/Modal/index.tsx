@@ -6,11 +6,9 @@ ReactModal.setAppElement('*');
 type ModalProps = {
   isOpen: boolean;
   handleClose: () => void;
-  width?: number;
+  width?: number | string;
   height?: number;
   children: React.ReactNode;
-  className?: string;
-  overlayClassName?: string;
 };
 
 export const Modal: React.FC<ModalProps> = ({
@@ -19,8 +17,6 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   isOpen,
   handleClose,
-  className,
-  overlayClassName,
 }: ModalProps) => {
   const styles: Styles = {
     overlay: {
@@ -50,13 +46,7 @@ export const Modal: React.FC<ModalProps> = ({
   };
 
   return (
-    <ReactModal
-      style={styles}
-      isOpen={isOpen}
-      onRequestClose={handleClose}
-      className={className}
-      overlayClassName={overlayClassName}
-    >
+    <ReactModal style={styles} isOpen={isOpen} onRequestClose={handleClose}>
       {children}
     </ReactModal>
   );
@@ -67,6 +57,4 @@ export default Modal;
 Modal.defaultProps = {
   width: 400,
   height: 200,
-  className: 'Modal',
-  overlayClassName: 'Overlay',
 };
